@@ -1,0 +1,12 @@
+@Claudia
+
+public class Board
+{
+  private Space[][] spaces;
+  private final SIZE;
+  public Board(int size)
+  {
+    SIZE = size;
+    spaces = new Space[SIZE][SIZE];
+  }
+}
