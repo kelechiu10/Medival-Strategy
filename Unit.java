@@ -1,34 +1,34 @@
 /**
- * Abstract Class Piece
+ * Abstract Class Unit
  * @author Matthew Oh
  * @version 6/11/18
  */
-public abstract class Piece
+public abstract class Unit
 {
     protected int attack;
     protected int maxHealth;
     protected int health;
-    protected int move;
+    protected int moveSpeed;
     protected Ability[] abilities;
     
     /**
-     * Constructor for piece
-     * @param a attack of the piece
-     * @param h max health of the piece
-     * @param m movement of the piece
+     * Constructor for unit
+     * @param a attack of the unit
+     * @param h max health of the unit
+     * @param m movement of the unit
      */
-    public Piece(int a, int h, int m)
+    public Unit(int a, int h, int m)
     {
         attack = a;
         maxHealth = h;
         health = h;
-        move = m;
+        moveSpeed = m;
     }
     
     /**
-     * Damages the piece, returns status of piece
-     * @param damage damage to be taken by this piece
-     * @return true if piece has died, false if not
+     * Damages the unit, returns status of unit
+     * @param damage damage to be taken by this unit
+     * @return true if unit has died, false if not
      */
     public boolean takeDamage(int damage)
     {
@@ -37,8 +37,8 @@ public abstract class Piece
     }
     
     /**
-     * Heals the piece
-     * @param heal increases health of this piece up to max health
+     * Heals the unit
+     * @param heal increases health of this unit up to max health
      */
     public void takeHeal(int heal)
     {
