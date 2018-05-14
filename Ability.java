@@ -10,5 +10,5 @@ public abstract class Ability
      * Uses an ability on a piece
      * @param target piece to be targeted by ability
      */
-    public abstract void use(Piece target);
+    public abstract void use(Unit target);
 }
