@@ -16,13 +16,15 @@ public abstract class Unit
      * @param a attack of the unit
      * @param h max health of the unit
      * @param m movement of the unit
+     * @param ab abilites of the unit
      */
-    public Unit(int a, int h, int m)
+    public Unit(int a, int h, int m, Ability[] ab)
     {
         attack = a;
         maxHealth = h;
         health = h;
         moveSpeed = m;
+        abilities = ab;
     }
     
     /**
