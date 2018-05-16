@@ -33,7 +33,7 @@ public abstract class Unit
     public boolean takeDamage(int damage)
     {
         health -= damage;
-        return health > 0;
+        return health <= 0;
     }
     
     /**
