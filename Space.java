@@ -1,17 +1,19 @@
+/**
+*/
 public abstract Space
 {
   protected Event[] events;
   //image
-  private Piece piece;
+  private Unit unit;
   
   public Space(Event[] e)
   {
     events = e;
   }
   
-  public void addPiece(Piece p)
+  public void addUnit(Unit u)
   {
-    piece = piece;
+    Unit = u;
   }
  
   
