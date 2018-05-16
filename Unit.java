@@ -1,7 +1,7 @@
 /**
  * Abstract Class Unit
  * @author Matthew Oh
- * @version 6/11/18
+ * @version 6/16/18
  */
 public abstract class Unit
 {
@@ -9,22 +9,25 @@ public abstract class Unit
     protected int maxHealth;
     protected int health;
     protected int moveSpeed;
-    protected Ability[] abilities;
+    protected Position position;
     
     /**
      * Constructor for unit
      * @param a attack of the unit
      * @param h max health of the unit
      * @param m movement of the unit
-     * @param ab abilites of the unit
      */
-    public Unit(int a, int h, int m, Ability[] ab)
+    public Unit(int a, int h, int m)
     {
         attack = a;
         maxHealth = h;
         health = h;
         moveSpeed = m;
-        abilities = ab;
+    }
+    
+    public void attack(Position target)
+    {
+        
     }
     
     /**
@@ -47,4 +50,10 @@ public abstract class Unit
         health += heal;
         if (health > maxHealth) health = maxHealth;
     }
+    
+    /**
+     * Uses a unit's ability
+     * @param num the ability number to be used
+     */
+    public abstract void useAbility(int num);
 }
