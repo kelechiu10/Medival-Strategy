@@ -1,7 +1,7 @@
 /**
  * Board Class
  * @author Claudia
- * @version 6/16/18
+ * @version 5/16/18
  */
 
 public class Board
