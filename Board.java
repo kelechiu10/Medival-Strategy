@@ -1,6 +1,6 @@
 /**
  * Board Class
- * @author Claudia
+ * @author Claudia Xue
  * @version 5/16/18
  */
 
