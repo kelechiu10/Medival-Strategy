@@ -1,3 +1,9 @@
+/**
+ * Space Abstract Class
+ * @author Claudie Xue
+ * @version 5/16/18
+ */
+
 public abstract Space
 {
   protected Event[] events;
