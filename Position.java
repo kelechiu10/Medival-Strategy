@@ -29,12 +29,23 @@
         return xPos;
     }
     
-     /**
+    /**
      * Returns the y position
      * @return the y position
      */
     public getY()
     {
         return yPos;
+    }
+    
+    /**
+     * Sets the position
+     * @param x new x position
+     * @param y new y position
+     */
+    public setPos(int x, int y)
+    {
+        xPos = x;
+        yPos = y;
     }
  }
