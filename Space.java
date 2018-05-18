@@ -1,6 +1,6 @@
 /**
  * Space Abstract Class
- * @author Claudie Xue
+ * @author Claudia Xue
  * @version 5/16/18
  */
 
@@ -8,16 +8,21 @@ public abstract Space
 {
   protected Event[] events;
   //image
-  private Piece piece;
+  private Unit unit;
   
   public Space(Event[] e)
   {
     events = e;
   }
   
-  public void addPiece(Piece p)
+  public void setUnit(Unit u)
   {
-    piece = piece;
+    unit = u;
+  }
+  
+  public Unit getUnit()
+  {
+    return unit;
   }
  
   
