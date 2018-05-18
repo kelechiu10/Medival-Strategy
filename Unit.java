@@ -1,7 +1,7 @@
 /**
  * Abstract Class Unit
  * @author Matthew Oh
- * @version 5/16/18
+ * @version 5/18/18
  */
 public abstract class Unit
 {
@@ -25,9 +25,23 @@ public abstract class Unit
         moveSpeed = m;
     }
     
+    /**
+     * Basic attack on the unit at a certain positon
+     * Precondition: space has a unit
+     * @param target position of the unit to be attacked
+     */
     public void attack(Position target)
     {
-        
+        Board.getSpace().getUnit().takeDamage(attack); //if board is static
+    }
+    
+    /**
+     * Sets the position of the unit
+     * @param area new position for the unit
+     */
+    public void move(Position area)
+    {
+        position = area;
     }
     
     /**
@@ -35,9 +49,9 @@ public abstract class Unit
      * @param damage damage to be taken by this unit
      * @return true if unit has died, false if not
      */
-    public boolean takeDamage(int damage)
+    public boolean takeDamage(int attackPower)
     {
-        health -= damage;
+        health -= 10 * attackPower / defence;
         return health <= 0;
     }
     
@@ -45,7 +59,7 @@ public abstract class Unit
      * Heals the unit
      * @param heal increases health of this unit up to max health
      */
-    public void takeHeal(int heal)
+    public void heal(int heal)
     {
         health += heal;
         if (health > maxHealth) health = maxHealth;
