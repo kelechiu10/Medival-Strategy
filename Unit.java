@@ -32,7 +32,7 @@ public abstract class Unit
      */
     public void attack(Position target)
     {
-        Board.getSpace().getUnit().takeDamage(attack); //if board is static
+        Board.dealDamage(target, attack);
     }
     
     /**
