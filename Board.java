@@ -54,4 +54,10 @@ public class Board
   {
     return spaces[pos.getX()][pos.getY()];
   }
+  
+  public void dealDamage(Position pos, int attack)
+  {
+    if(spaces[pos.getX()][pos.getY()].getUnit().takeDamage(attack))
+      spaces[pos.getX()][pos.getY()].removeUnit();
+  }
 }
