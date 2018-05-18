@@ -4,7 +4,7 @@
  * @version 5/16/18
  */
 
-public class Board
+public class static Board
 {
   private Space[][] spaces;
   private final SIZE;//15 for now
