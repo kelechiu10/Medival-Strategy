@@ -24,6 +24,10 @@ public abstract Space
   {
     return unit;
   }
+  public void addUnit(Unit u)
+  {
+    Unit = u;
+  }
  
   
 }
