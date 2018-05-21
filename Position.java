@@ -1,6 +1,7 @@
 /**
  * Position Object
  * because for some reason we can't just use point2d
+ * Holds the position of a unit on the Board object
  * @author Matthew Oh
  * @version 5/17/18
  */
