@@ -79,9 +79,9 @@
      * @param integer index on Item array, Position target to use item
      *
      */
-    public void useItem(int index, Position target)
+    public Item useItem(int index)
     {
-        item[index].use(target);
+        return item[index]
     }
     
     /**
