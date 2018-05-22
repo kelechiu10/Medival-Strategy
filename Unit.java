@@ -68,8 +68,9 @@ public abstract class Unit
     }
     
     /**
-     * Uses a unit's ability
-     * @param num the ability number to be used
+     * Gets a unit's ability
+     * @param target target of the ability
+     * @param num the ability number to be accessed
      */
-    public abstract void useAbility(Position target, int num);
+    public abstract Action getAbility(Position target, int num);
 }
