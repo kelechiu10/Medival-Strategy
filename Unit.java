@@ -6,6 +6,7 @@
 public abstract class Unit
 {
     protected int attack;
+    protected int defence;
     protected int maxHealth;
     protected int health;
     protected int moveSpeed;
@@ -17,9 +18,10 @@ public abstract class Unit
      * @param hp max health of the unit
      * @param move range of movement of the unit
      */
-    public Unit(int atk, int hp, int move)
+    public Unit(int atk, int def, int hp, int move)
     {
         attack = atk;
+        defence = def;
         maxHealth = hp;
         health = hp;
         moveSpeed = move;
