@@ -12,6 +12,20 @@ public abstract class Unit
     protected Position position;
     
     /**
+     * Constructor for unit
+     * @param atk attack of the unit
+     * @param hp max health of the unit
+     * @param move range of movement of the unit
+     */
+    public Unit(int atk, int hp, int move)
+    {
+        attack = atk;
+        maxHealth = hp;
+        health = hp;
+        moveSpeed = move;
+    }
+    
+    /**
      * Basic attack on the unit at a certain positon
      * Precondition: space has a unit
      * @param target position of the unit to be attacked
