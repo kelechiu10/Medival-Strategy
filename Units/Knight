@@ -1,1 +1,6 @@
-implement later
+/**
+ * Knight Unit Class
+ */
+public class Knight extends Unit
+{
+}
