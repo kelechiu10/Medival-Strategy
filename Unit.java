@@ -32,9 +32,9 @@ public abstract class Unit
      * Precondition: space has a unit
      * @param target position of the unit to be attacked
      */
-    public void attack(Position target)
+    public Action attack(Position target)
     {
-        Board.dealDamage(target, attack);
+        return new Action(target, attack, "attack");
     }
     
     /**
