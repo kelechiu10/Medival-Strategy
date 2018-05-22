@@ -71,5 +71,5 @@ public abstract class Unit
      * Uses a unit's ability
      * @param num the ability number to be used
      */
-    public abstract void useAbility(int num);
+    public abstract void useAbility(Position target, int num);
 }
