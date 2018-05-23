@@ -1,14 +1,14 @@
 /**
  * Action Class
  * Holds information about an unit's action
- * This class is passed to board to do the action
+ * This class is passed to game to do the action
  * @author Matthew Oh
  * @version 5/21/18
  */
 public class Action
 {
     private Position target; //the position of the unit or space to be targeted in the operation
-    private int power; //the power of the action (ignored when operation is move)
+    private Position current; //the position of the unit doing the action
     
     /* String operation
      * This string dictates what the action does
@@ -24,30 +24,30 @@ public class Action
      * @param pwr power of the action 
      * @param op what the action does
      */
-    public Action(Position pos, int pwr, String op)
+    public Action(Position tar, Position cur, String op)
     {
-        position = pos;
-        power = pwr;
+        target = tar;
+        current = cur;
         operation = op;
     }
     
     /**
-     * Returns the position of the action
-     * @return the position of the action
+     * Returns the target of the action
+     * @return the target of the action
      */
-    public Position getPosition()
+    public Position getTarget()
     {
-        return position;
+        return target;
     }
     
     /**
-     * Returns the power of the action
-     * @return the power of the action
+     * Returns the position of the unit doing the action
+     * @return the position of the unit doing the action
      */
-     public int getPower()
-     {
-        return power;
-     }
+    public Position getCurrent()
+    {
+        return current;
+    }
      
      /**
       * Returns the operation of the action
