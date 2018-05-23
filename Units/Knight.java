@@ -30,4 +30,15 @@ public class Knight extends Unit
     {
         return attack();
     }
+    
+    /**
+     * Returns target restrictions for Knight's Abilities
+     * 0: adjacent spaces
+     * 1: anywhere
+     * @param num number of ability 
+     */
+    public int abilityRestriction(int num)
+    {
+        return 0;
+    }
 }
