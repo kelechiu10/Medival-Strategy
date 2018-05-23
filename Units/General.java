@@ -29,4 +29,15 @@ public class General extends Unit
     {
         return attack();
     }
+    
+    /**
+     * Returns target restrictions for Archer's Abilities
+     * 0: adjacent spaces
+     * 1: anywhere
+     * @param num number of ability 
+     */
+    public int abilityRestriction(int num)
+    {
+        return 0;
+    }
 }
