@@ -10,24 +10,31 @@
  * @author Matthew Oh
  * @version 5/22/18
  */
-public class Knight extends Unit
+public class Mage extends Unit
 {
     /**
-     * Constructor for Knight
+     * Constructor for Mage
      */
-    public Knight()
+    public Mage()
     {
-        super(20,20,65,5);
+        super(12,15,40,4);
     }
     
     /**
-     * Gets Knight's ability
-     * Knight has no abilities for now
+     * Gets Mage's ability
      * @param target target of the ability
-     * @param num number of ability to be used
      */
-    public Action getAbility(Position target, int num)
+    public Action getAbility(Position target)
     {
         return new Action(target, 17, "attack");
+    }
+    
+    /**
+     * Returns range for Mage's Ability
+     * @return range of the ability
+     */
+    public int getRange()
+    {
+        return 5;
     }
 }
