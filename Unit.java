@@ -29,7 +29,6 @@ public abstract class Unit
     
     /**
      * Basic attack on the unit at a certain positon
-     * Precondition: space has a unit
      * @param target position of the unit to be attacked
      */
     public Action attack(Position target)
@@ -70,14 +69,12 @@ public abstract class Unit
     /**
      * Gets a unit's ability
      * @param target target of the ability
-     * @param num the ability number to be accessed
      */
-    public abstract Action getAbility(Position target, int num);
+    public abstract Action getAbility(Position target);
     
     /**
-     * Returns an int based on the unit's ability's restriction in target positions
-     * 0: adjacent squares
-     * 1: anywhere
+     * Returns the range of the unit's ability
+     * @return the range of the ability 
      */
-    public abstract int abilityRestriction(int num);
+    public abstract double getRange();
 }
