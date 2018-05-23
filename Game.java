@@ -57,16 +57,26 @@ public class Game
           if(turnNumber % 2 == 0)
           {
               tempAction = players[0].getAction();
-              if(tempAction.getOperation().equals("attack"))
+              if(attackActionValid(tempAction))
               {
-                  if(attackActionValid(tempAction))
-                      board.dealDamage(tempAction.getTarget(), ((board.getSpace(tempAction.getTarget())));
+                  board.dealDamage(tempAction.getTarget(), ((board.getSpace(tempAction.getTarget())));
               }
               else
-                  if(tempAction.getOperation().equals("move"))
+                  if(moveActionValid(tempAction))
                   {
-                      
+                     //switch the two in the board and then change it in the unit itself
+                     (board.getSpace(tempAction.getTarget())).setUnit((board.getSpace(tempAction.getCurrent())).getUnit());
+                     (board.getSpace(tempAciton.getCurrent())).setUnit(null);
+                     (board.getSpace(tempAction.getCurrent())).getUnit().move(tempAction.getTarget());
                   }
+                  else
+                     if(healActionValid(tempAciton))
+                     {
+                        int healPower = ((Priest)((board.getSpace(tempAction.getTarget())).getUnit()).getHealPower();
+                        (board.getSpace(tempAction.getTarget())).getUnit().heal(healPower);
+                     }
+                     
+                  
           }
           
           
@@ -77,16 +87,55 @@ public class Game
    }
    
    /**
-    * attackActionValid checks if the action passed is an attack action which is within range
     *
+    *
+    */
+   private boolean healActionValid(Action a)
+   {
+      if(!tempAction.getOperation().equals("heal"))
+         return false;
+      else
+         if(board.getSpace(a.getCurrent()).getUnit()
+   }
+   /**
+    * moveActionValid checks if the action passed is a valid move action
+    * @return boolean if action is valid
+    */
+   private boolean moveAcitonValid(Action a)
+   {
+      if(!tempAction.getOperation().equals("move"))
+         return false;
+      else
+         if(Math.sqrt(Math.pow(a.getCurrent().getX + a.getTarget().getX, 2) 
+            + Math.pow(a.getCurrent().getY() + a.getTarget().getY(), 2)) 
+            <= board.getSpace(a.getCurrent()).getUnit().getMoveSpeed())
+         {
+            return true;
+         }
+         else
+            return false;
+   }
+   /**
+    * attackActionValid checks if the action passed is an attack action which is within range
+    * @return boolean if attack is valid
     */
    private boolean attackActionValid(Action a)
    {
+      int rangeTemp;
       if(!a.getOperation().equals("attack"))
           return false;
-      else
-          if(board.getSpace(a.getCurrent()).getUnit().getRange() //SOMEHOW IMPLEMENT RANGE
+      else //applies distance formula and then checks if it is less than the range value
+         if(Math.sqrt(Math.pow(a.getCurrent().getX + a.getTarget().getX, 2) 
+            + Math.pow(a.getCurrent().getY() + a.getTarget().getY(), 2)) 
+            <= board.getSpace(a.getCurrent()).getUnit().getRange())
+         {
+               return true;
+         }
+         else
+            return false;
    }
+                                       
+                                       
    /**
     * isOver returns true if either player has 0 units left
     * @return boolean if over
