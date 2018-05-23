@@ -47,9 +47,9 @@
      *
      * MAY BE XT, NEED TO WORK WITH GAME CLASS
      */
-    public void setAction()
+    public void setAction(Action act)
     {
-        //to be implemented 
+        aciton = act;
     }
     
     /**
