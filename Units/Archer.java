@@ -34,8 +34,8 @@ public class Archer extends Unit
      * Returns the range of the Archers's ability
      * @return the range of the ability 
      */
-    public int getRange()
+    public double getRange()
     {
-        return 8;
+        return 8.0;
     }
 }
