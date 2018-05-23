@@ -1,6 +1,6 @@
 /**
  * Archer Unit Class
- * Attack: 12
+ * Attack: 13
  * Defence: 10
  * Health: 45
  * Movement: 5
@@ -17,7 +17,7 @@ public class Archer extends Unit
      */
     public Archer()
     {
-        super(12,10,45,5);
+        super(13,10,45,5);
     }
     
     /**
@@ -27,7 +27,7 @@ public class Archer extends Unit
      */
     public Action getAbility(Position target, int num)
     {
-        return new Action(target, 13, "attack");
+        return new Action(target, power, "attack");
     }
     
     /**
