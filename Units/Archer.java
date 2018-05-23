@@ -27,17 +27,15 @@ public class Archer extends Unit
      */
     public Action getAbility(Position target, int num)
     {
-        return new Action(target, 15, "attack");
+        return new Action(target, 13, "attack");
     }
     
     /**
-     * Returns target restrictions for Archer's Abilities
-     * 0: adjacent spaces
-     * 1: anywhere
-     * @param num number of ability 
+     * Returns the range of the Archers's ability
+     * @return the range of the ability 
      */
-    public int abilityRestriction(int num)
+    public int getRange()
     {
-        return 1;
+        return 8;
     }
 }
