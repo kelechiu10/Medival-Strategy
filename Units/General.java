@@ -23,21 +23,18 @@ public class General extends Unit
     /**
      * Gets General's ability
      * @param target target of the ability
-     * @param num number of ability to be used
      */
-    public Action getAbility(Position target, int num)
+    public Action getAbility(Position target)
     {
         return attack();
     }
     
     /**
-     * Returns target restrictions for General's Abilities
-     * 0: adjacent spaces
-     * 1: anywhere
-     * @param num number of ability 
+     * Returns the range of the unit's ability
+     * @return the range of the ability 
      */
-    public int abilityRestriction(int num)
+    public double getRange()
     {
-        return 0;
+        return 1.5;
     }
 }
