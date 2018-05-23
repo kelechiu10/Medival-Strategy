@@ -1,7 +1,7 @@
 /**
  * Abstract Class Unit
  * @author Matthew Oh
- * @version 5/18/18
+ * @version 5/23/18
  */
 public abstract class Unit
 {
@@ -27,13 +27,9 @@ public abstract class Unit
         moveSpeed = move;
     }
     
-    /**
-     * Basic attack on the unit at a certain positon
-     * @param target position of the unit to be attacked
-     */
-    public Action attack(Position target)
+    public int getAttackValue()
     {
-        return new Action(target, attack, "attack");
+        return attack;
     }
     
     /**
