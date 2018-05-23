@@ -31,7 +31,7 @@ public class General extends Unit
     }
     
     /**
-     * Returns target restrictions for Archer's Abilities
+     * Returns target restrictions for General's Abilities
      * 0: adjacent spaces
      * 1: anywhere
      * @param num number of ability 
