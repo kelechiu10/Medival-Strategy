@@ -26,7 +26,7 @@ public class Mage extends Unit
      */
     public Action getAbility(Position target)
     {
-        return new Action(target, 17, "attack");
+        return new Action(target, 16, "attack");
     }
     
     /**
