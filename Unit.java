@@ -73,4 +73,11 @@ public abstract class Unit
      * @param num the ability number to be accessed
      */
     public abstract Action getAbility(Position target, int num);
+    
+    /**
+     * Returns an int based on the unit's ability's restriction in target positions
+     * 0: adjacent squares
+     * 1: anywhere
+     */
+    public abstract int abilityRestriction(int num);
 }
