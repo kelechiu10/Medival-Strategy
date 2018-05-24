@@ -6,22 +6,29 @@
 
 public abstract Space
 {
-  protected Event[] events;
-  //image
-  private Unit unit;
+    //protected Event[] events;
+    protected String terrain;
+    protected Unit unit;
+    protected boolean walkable;
   
-  public Space(Event[] e)
-  {
-    events = e;
-  }
+    public Space(boolean walk/* ,Event[] e*/)
+    {
+        walkable = walk;
+        //events = e;
+    }
+    
+    public boolean walkable()
+    {
+        return walkable;
+    }
   
-  public void setUnit(Unit u)
-  {
-    unit = u;
-  }
+    public void setUnit(Unit u)
+    {
+        unit = u;
+    }
   
-  public Unit getUnit()
-  {
-    return unit;
-  }
+    public Unit getUnit()
+    {
+        return unit;
+    }
 }
