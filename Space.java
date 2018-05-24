@@ -1,7 +1,7 @@
 /**
  * Space Abstract Class
  * @author Claudia Xue
- * @version 5/16/18
+ * @version 5/24/18
  */
 
 public abstract Space
@@ -24,10 +24,4 @@ public abstract Space
   {
     return unit;
   }
-  public void addUnit(Unit u)
-  {
-    Unit = u;
-  }
- 
-  
 }
