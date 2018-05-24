@@ -29,7 +29,7 @@
         units.add(new Knight());
         units.add(new Runner());
         
-        items = {new HealPotion(), new HealPotion(), new AttackPotion()};
+        items = {new Item(10, 3, HealPotion), new Item(10, 3, HealPotion), new Item(10, 3, HealPotion)};
     }
     
     /**
