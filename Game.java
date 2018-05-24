@@ -122,22 +122,22 @@ public class Game
       if(a.getOperation().indexOf("Use Item:") == -1)
          return false;
       else
-         if(a.getOperation().indexOf("HealingPotion") > -1)
+         if(a.getOperation().indexOf("HealPotion") > -1)
          {
             
          }
          else
-            if(a.getOperation().indexOf("movePotion") > -1)
+            if(a.getOperation().indexOf("MovePotion") > -1)
             {
                
             }
             else
-               if(a.getOperation().indexOf("rangePotion") > -1)
+               if(a.getOperation().indexOf("RangePotion") > -1)
                {
                   
                }
                else
-                  if(a.getOperation().indexOf("attackPotion") > -1)
+                  if(a.getOperation().indexOf("AttackPotion") > -1)
                   {
                      
                   }
