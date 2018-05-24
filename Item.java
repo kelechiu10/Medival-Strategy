@@ -34,4 +34,22 @@ public class Item
     {
         return usesRemaining;
     }
+    
+    /**
+     * getName returns the name of the Item
+     * @retrun String name
+     */
+    public String getName()
+    {
+        return name;
+    }
+    
+    /**
+     * #OVERIDE (I dont remember how to do this javadoc properly and im too lazy to fix it
+     * @return String representation of the item including name, uses, and potency
+     */
+    public String toString()
+    {
+        return name + " Uses: " + usesRemaining + " Potency: " + potency;
+    }
 }
