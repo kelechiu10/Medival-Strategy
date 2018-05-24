@@ -56,7 +56,33 @@ public class Game
                      {
                         int healPower = ((Priest)((board.getSpace(tempAction.getTarget())).getUnit()).getAbilityPower();
                         (board.getSpace(tempAction.getTarget())).getUnit().heal(healPower);
-                     }    
+                     } 
+                     if(itemActionValid(tempAction))
+                     {
+                        if(a.getOperation().indexOf("HealingPotion") > -1)
+                        {
+                           int healPower = (players[a.getCurrent().getX()].useItem(a.getCurrent().getY())).useItem();
+                           board.getSpace(tempAction.getTarget()).getUnit().heal(healPower);
+                        }
+                        else
+                           if(a.getOperation().indexOf("movePotion") > -1)
+                           {
+                              int movePower = (players[a.getCurrent().getX()].useItem(a.getCurrent().getY())).useItem();
+                              board.getSpace(tempAction.getTarget()).getUnit().addMove(movePower);
+                           }
+                           else
+                              if(a.getOperation().indexOf("rangePotion") > -1)
+                              {
+                                 int rangePower = (players[a.getCurrent().getX()].useItem(a.getCurrent().getY())).useItem();
+                                 board.getSpace(tempAction.getTarget()).getUnit().addRange(rangePower);
+                              }
+                              else
+                                 if(a.getOperation().indexOf("attackPotion") > -1)
+                                 {
+                                    int attackPower = (players[a.getCurrent().getX()].useItem(a.getCurrent().getY())).useItem();
+                                    board.getSpace(tempAction.getTarget()).getUnit().addAttack(attackPower);
+                                 }
+                     }
           }
           turnNumber++;
       }
@@ -86,6 +112,37 @@ public class Game
    }
    
    /**
+    * itemActionValid checks if the Action passed is a valid item action
+    * 
+    * @param Action object
+    * @return boolean if action is valid
+    */
+   private boolean itemActionValid(Action a)
+   {
+      if(a.getOperation().indexOf("Use Item:") == -1)
+         return false;
+      else
+         if(a.getOperation().indexOf("HealingPotion") > -1)
+         {
+            
+         }
+         else
+            if(a.getOperation().indexOf("movePotion") > -1)
+            {
+               
+            }
+            else
+               if(a.getOperation().indexOf("rangePotion") > -1)
+               {
+                  
+               }
+               else
+                  if(a.getOperation().indexOf("attackPotion") > -1)
+                  {
+                     
+                  }
+   }
+   /**
     * healActionValid checks if the Action passed is a valid heal action
     * this only checks if the Action passed is of operation "heal" and is within 4 range
     * @param Action object
@@ -102,6 +159,8 @@ public class Game
          {
             return true;
          }
+         else
+            return false;
    }
             
    /**
