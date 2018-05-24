@@ -59,25 +59,25 @@ public class Game
                      } 
                      if(itemActionValid(tempAction))
                      {
-                        if(a.getOperation().indexOf("HealingPotion") > -1)
+                        if(a.getOperation().indexOf("HealPotion") > -1)
                         {
                            int healPower = (players[a.getCurrent().getX()].useItem(a.getCurrent().getY())).useItem();
                            board.getSpace(tempAction.getTarget()).getUnit().heal(healPower);
                         }
                         else
-                           if(a.getOperation().indexOf("movePotion") > -1)
+                           if(a.getOperation().indexOf("MovePotion") > -1)
                            {
                               int movePower = (players[a.getCurrent().getX()].useItem(a.getCurrent().getY())).useItem();
                               board.getSpace(tempAction.getTarget()).getUnit().addMove(movePower);
                            }
                            else
-                              if(a.getOperation().indexOf("rangePotion") > -1)
+                              if(a.getOperation().indexOf("RangePotion") > -1)
                               {
                                  int rangePower = (players[a.getCurrent().getX()].useItem(a.getCurrent().getY())).useItem();
                                  board.getSpace(tempAction.getTarget()).getUnit().addRange(rangePower);
                               }
                               else
-                                 if(a.getOperation().indexOf("attackPotion") > -1)
+                                 if(a.getOperation().indexOf("AttackPotion") > -1)
                                  {
                                     int attackPower = (players[a.getCurrent().getX()].useItem(a.getCurrent().getY())).useItem();
                                     board.getSpace(tempAction.getTarget()).getUnit().addAttack(attackPower);
@@ -104,9 +104,7 @@ public class Game
       Action action = new Action(target, current, operation);
       
       if(turnNumber % 2 == 0)
-      {
           players[0].setAction(action)
-      }
       else
           players[1].setAction(action)
    }
@@ -122,26 +120,33 @@ public class Game
       if(a.getOperation().indexOf("Use Item:") == -1)
          return false;
       else
-         if(a.getOperation().indexOf("HealPotion") > -1)
+         if(a.getOperation().indexOf("HealPotion") > -1 
+            && players[a.getCurrent().getX()].getItem(a.getCurrent().getY()).getName().equals("HealPotion"))
          {
-            
+            return true;
          }
          else
-            if(a.getOperation().indexOf("MovePotion") > -1)
+            if(a.getOperation().indexOf("MovePotion") > -1 
+               && players[a.getCurrent().getX()].getItem(a.getCurrent().getY()).getName().equals("MovePotion"))
             {
-               
+               return true;
             }
             else
-               if(a.getOperation().indexOf("RangePotion") > -1)
+               if(a.getOperation().indexOf("RangePotion") > -1 
+                  && players[a.getCurrent().getX()].getItem(a.getCurrent().getY()).getName().equals("RangePotion"))
                {
-                  
+                  return true;
                }
                else
-                  if(a.getOperation().indexOf("AttackPotion") > -1)
+                  if(a.getOperation().indexOf("AttackPotion") > -1 
+                     && players[a.getCurrent().getX()].getItem(a.getCurrent().getY()).getName().equals("AttackPotion"))
                   {
-                     
+                     return true;
                   }
+                  else
+                     return false;
    }
+                                         
    /**
     * healActionValid checks if the Action passed is a valid heal action
     * this only checks if the Action passed is of operation "heal" and is within 4 range
