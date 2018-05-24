@@ -44,7 +44,7 @@ public class Game
    }
    
    /**
-    * startGame starts the game (duhhhh)
+    * runGame starts the game (duhhhh)
     *
     */
    private void runGame()
@@ -72,33 +72,37 @@ public class Game
                   else
                      if(healActionValid(tempAciton))
                      {
-                        int healPower = ((Priest)((board.getSpace(tempAction.getTarget())).getUnit()).getHealPower();
+                        int healPower = ((Priest)((board.getSpace(tempAction.getTarget())).getUnit()).getAbilityPower();
                         (board.getSpace(tempAction.getTarget())).getUnit().heal(healPower);
-                     }
-                     
-                  
+                     }    
           }
-          
-          
-          
           turnNumber++;
       }
       
    }
    
    /**
-    *
-    *
+    * healActionValid checks if the Action passed is a valid heal action
+    * this only checks if the Action passed is of operation "heal" and is within 4 range
+    * @param Action object
+    * @return boolean if action is valid
     */
    private boolean healActionValid(Action a)
    {
       if(!tempAction.getOperation().equals("heal"))
          return false;
       else
-         if(board.getSpace(a.getCurrent()).getUnit()
+         if(Math.sqrt(Math.pow(a.getCurrent().getX + a.getTarget().getX, 2) 
+            + Math.pow(a.getCurrent().getY() + a.getTarget().getY(), 2)) 
+            <= 4)
+         {
+            return true;
+         }
    }
+            
    /**
     * moveActionValid checks if the action passed is a valid move action
+    * @param Action object
     * @return boolean if action is valid
     */
    private boolean moveAcitonValid(Action a)
@@ -117,6 +121,7 @@ public class Game
    }
    /**
     * attackActionValid checks if the action passed is an attack action which is within range
+    * @param Action object
     * @return boolean if attack is valid
     */
    private boolean attackActionValid(Action a)
