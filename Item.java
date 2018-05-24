@@ -5,9 +5,14 @@
 public abstract class Item
 {
     protected int usesRemaining;
+    protected int potency;
     protected String name;
     
     public int useItem();
+    {
+        usesRemaining--;
+        return potency;
+    }
     
     public int getUsesRemaining()
     {
