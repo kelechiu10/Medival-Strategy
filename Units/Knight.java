@@ -37,4 +37,13 @@ public class Knight extends Unit
     {
         return 1.5;
     }
+    
+    /**
+     * Gets the power of the Knight's ability
+     * @return the power of the Knight's ability
+     */
+    public int getAbilityPower()
+    {
+        return 20;
+    }
 }
