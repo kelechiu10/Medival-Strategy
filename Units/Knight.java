@@ -26,7 +26,7 @@ public class Knight extends Unit
      */
     public Action getAbility(Position target)
     {
-        return attack();
+        return new Action(target, current, "attack");
     }
     
     /**
