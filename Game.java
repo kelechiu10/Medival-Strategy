@@ -26,24 +26,6 @@ public class Game
    }
    
    /**
-    * nextTurn gets the input from the user and sends this input back to the active method
-    * 
-    */
-   private void nextTurn()
-   {
-      //SOMEHOW GETS INPUT FROM THE USER AND STORES IT IN AN ACTION OBJECT
-      
-      Action action = new Action();
-      
-      if(turnNumber % 2 == 0)
-      {
-          players[0].setAction(action)
-      }
-      else
-          players[1].setAction(action)
-   }
-   
-   /**
     * runGame starts the game (duhhhh)
     *
     */
@@ -79,6 +61,28 @@ public class Game
           turnNumber++;
       }
       
+   }
+                                         
+   /**
+    * nextTurn gets the input from the user and sends this input back to the active method
+    * 
+    */
+   private void nextTurn()
+   {
+      //SOMEHOW GETS INPUT FROM THE USER AND STORES IN THE THREE VARIABLES BELOW
+      
+      Position current = new Position(1,2);
+      Position target = new Position(2,3);
+      String operation = "Temp";
+      
+      Action action = new Action(target, current, operation);
+      
+      if(turnNumber % 2 == 0)
+      {
+          players[0].setAction(action)
+      }
+      else
+          players[1].setAction(action)
    }
    
    /**
@@ -139,8 +143,7 @@ public class Game
          else
             return false;
    }
-                                       
-                                       
+                                                                         
    /**
     * isOver returns true if either player has 0 units left
     * @return boolean if over
