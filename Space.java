@@ -12,10 +12,12 @@ public abstract Space
     /**
      * Constuctor for Space
      * @param walk if the space can be walked on
+     * @param ter terrain type
      */
-    public Space(boolean walk)
+    public Space(boolean walk, String ter)
     {
         walkable = walk;
+        terrain = ter;
     }
     
     /**
