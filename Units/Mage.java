@@ -33,8 +33,8 @@ public class Mage extends Unit
      * Returns range for Mage's Ability
      * @return range of the ability
      */
-    public int getRange()
+    public double getRange()
     {
-        return 5;
+        return 5.0;
     }
 }
