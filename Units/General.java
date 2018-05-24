@@ -37,4 +37,13 @@ public class General extends Unit
     {
         return 1.5;
     }
+    
+    /**
+     * Gets the power of the General's ability
+     * @return the power of the General's ability
+     */
+    public int getAbilityPower()
+    {
+        return 12;
+    }
 }
