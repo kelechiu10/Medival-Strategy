@@ -1,7 +1,7 @@
 /**
  * Abstract Class Unit
  * @author Matthew Oh
- * @version 5/23/18
+ * @version 5/24/18
  */
 public abstract class Unit
 {
