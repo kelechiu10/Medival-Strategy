@@ -9,6 +9,7 @@ public class Game
    private Board board;
    private int turnNumber;
    private Player[] players;
+   private final Item[] DEFAULTITEMS;
    //private Unit[] initiative;
    
    /**
@@ -17,6 +18,7 @@ public class Game
     */
    public Game()
    {
+      DEFAULTITEMS = {new Item(10, 3, HealPotion), new Item(1, 2, RangePotion), new Item(5, 2, AttckPotion), new Item(1, 2, MovePotion)};
       board = new Board(15);
       players = {new Player, new Player};
       turnNumber = 0;
@@ -57,32 +59,38 @@ public class Game
                         int healPower = ((Priest)((board.getSpace(tempAction.getTarget())).getUnit()).getAbilityPower();
                         (board.getSpace(tempAction.getTarget())).getUnit().heal(healPower);
                      } 
-                     if(itemActionValid(tempAction))
-                     {
-                        if(a.getOperation().indexOf("HealPotion") > -1)
+                     else
+                        if(itemActionValid(tempAction))
                         {
-                           int healPower = (players[a.getCurrent().getX()].useItem(a.getCurrent().getY())).useItem();
-                           board.getSpace(tempAction.getTarget()).getUnit().heal(healPower);
-                        }
-                        else
-                           if(a.getOperation().indexOf("MovePotion") > -1)
+                           if(tempAction.getOperation().indexOf("HealPotion") > -1)
                            {
-                              int movePower = (players[a.getCurrent().getX()].useItem(a.getCurrent().getY())).useItem();
-                              board.getSpace(tempAction.getTarget()).getUnit().addMove(movePower);
+                              int healPower = (players[tempAction.getCurrent().getX()].useItem(tempAction.getCurrent().getY())).useItem();
+                              board.getSpace(tempAction.getTarget()).getUnit().heal(healPower);
                            }
                            else
-                              if(a.getOperation().indexOf("RangePotion") > -1)
-                              {
-                                 int rangePower = (players[a.getCurrent().getX()].useItem(a.getCurrent().getY())).useItem();
-                                 board.getSpace(tempAction.getTarget()).getUnit().addRange(rangePower);
-                              }
-                              else
-                                 if(a.getOperation().indexOf("AttackPotion") > -1)
-                                 {
-                                    int attackPower = (players[a.getCurrent().getX()].useItem(a.getCurrent().getY())).useItem();
-                                    board.getSpace(tempAction.getTarget()).getUnit().addAttack(attackPower);
-                                 }
-                     }
+                               if(tempAction.getOperation().indexOf("MovePotion") > -1)
+                               {
+                                  int movePower = (players[tempAction.getCurrent().getX()].useItem(tempAction.getCurrent().getY())).useItem();
+                                  board.getSpace(tempAction.getTarget()).getUnit().addMove(movePower);
+                               }
+                               else
+                                  if(tempAction.getOperation().indexOf("RangePotion") > -1)
+                                  {
+                                     int rangePower = (players[tempAction.getCurrent().getX()].useItem(tempAction.getCurrent().getY())).useItem();
+                                     board.getSpace(tempAction.getTarget()).getUnit().addRange(rangePower);
+                                  }
+                                  else
+                                     if(tempAction.getOperation().indexOf("AttackPotion") > -1)
+                                     {
+                                        int attackPower = (players[tempAction.getCurrent().getX()].useItem(tempAction.getCurrent().getY())).useItem();
+                                        board.getSpace(tempAction.getTarget()).getUnit().addAttack(attackPower);
+                                     }
+                        }
+                        else
+                           if(pickUpItemValid(tempAction))
+                           {
+                              
+                           }
           }
           turnNumber++;
       }
@@ -110,8 +118,59 @@ public class Game
    }
    
    /**
+    * pickUpItemValid checks if the Aciton passed is a valid pick up item action
+    *
+    * the Action object will be formatted as follows for picking up items
+    *    current x: index on default items array
+    *    current y: player number
+    *    target x: index to be replaced on player's item array
+    *    target y: 0
+    *    operation: name of item to be used
+    *
+    * @param Action object
+    * @return boolean if action is valid
+    */
+   private boolean pickUpItemValid(Action a)
+   {
+      if(a.getOperation().indexOf("Pick up Item:") == -1)
+         return false;
+      else
+         if(a.getOperation().indexOf("HealPotion") > -1 
+            && DEFAULTITEMS[a.getCurrent().getX()].getName().equals("HealPotion"))
+         {
+            return true;
+         }
+         else
+            if(a.getOperation().indexOf("MovePotion") > -1 
+               && DEFAULTITEMS[a.getCurrent().getX()].getItem(a.getCurrent().getY()).getName().equals("MovePotion"))
+            {
+               return true;
+            }
+            else
+               if(a.getOperation().indexOf("RangePotion") > -1 
+                  && DEFAULTITEMS[a.getCurrent().getX()].getItem(a.getCurrent().getY()).getName().equals("RangePotion"))
+               {
+                  return true;
+               }
+               else
+                  if(a.getOperation().indexOf("AttackPotion") > -1 
+                     && DEFAULTITEMS[a.getCurrent().getX()].getItem(a.getCurrent().getY()).getName().equals("AttackPotion"))
+                  {
+                     return true;
+                  }
+                  else
+                     return false;
+   }
+   /**
     * itemActionValid checks if the Action passed is a valid item action
     * 
+    * the Action object will be formatted as follows for using items
+    *    current x: player number
+    *    current y: index on player's item array
+    *    target x: target x position
+    *    target y: target y position
+    *    operation: "Use Item: " + Item name
+    *
     * @param Action object
     * @return boolean if action is valid
     */
@@ -150,6 +209,14 @@ public class Game
    /**
     * healActionValid checks if the Action passed is a valid heal action
     * this only checks if the Action passed is of operation "heal" and is within 4 range
+    *
+    * the Action object will be formatted as follows for using a heal action
+    *    current x: priest unit's x
+    *    current y: priest unit's y
+    *    target x: target x position
+    *    target y: target y position
+    *    operation: "heal"
+    *
     * @param Action object
     * @return boolean if action is valid
     */
@@ -171,6 +238,14 @@ public class Game
    /**
     * moveActionValid checks if the action passed is a valid move action
     * @param Action object
+    *
+    * the Action object will be formatted as follows for using a move action
+    *    current x: current unit's x
+    *    current y: current unit's y
+    *    target x: target x position
+    *    target y: target y position
+    *    operation: "move"
+    *
     * @return boolean if action is valid
     */
    private boolean moveAcitonValid(Action a)
@@ -189,6 +264,14 @@ public class Game
    }
    /**
     * attackActionValid checks if the action passed is an attack action which is within range
+    *
+    * the Action object will be formatted as follows for using a attack action
+    *    current x: current unit's x
+    *    current y: current unit's y
+    *    target x: target x position
+    *    target y: target y position
+    *    operation: "attack"
+    *
     * @param Action object
     * @return boolean if attack is valid
     */
