@@ -42,6 +42,15 @@ public abstract class Unit
     }
     
     /**
+     * Returns the unit's move speed
+     * @return the unit's move speed
+     */
+    public int getMoveSpeed()
+    {
+        return moveSpeed();
+    }
+    
+    /**
      * Damages the unit, returns status of unit
      * @param damage damage to be taken by this unit
      * @return true if unit has died, false if not
