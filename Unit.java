@@ -1,24 +1,35 @@
 /**
  * Abstract Class Unit
  * @author Matthew Oh
- * @version 5/18/18
+ * @version 5/23/18
  */
 public abstract class Unit
 {
     protected int attack;
+    protected int defence;
     protected int maxHealth;
     protected int health;
     protected int moveSpeed;
     protected Position position;
     
     /**
-     * Basic attack on the unit at a certain positon
-     * Precondition: space has a unit
-     * @param target position of the unit to be attacked
+     * Constructor for unit
+     * @param atk attack of the unit
+     * @param hp max health of the unit
+     * @param move range of movement of the unit
      */
-    public void attack(Position target)
+    public Unit(int atk, int def, int hp, int move)
     {
-        Board.dealDamage(target, attack);
+        attack = atk;
+        defence = def;
+        maxHealth = hp;
+        health = hp;
+        moveSpeed = move;
+    }
+    
+    public int getAttackValue()
+    {
+        return attack;
     }
     
     /**
@@ -52,8 +63,14 @@ public abstract class Unit
     }
     
     /**
-     * Uses a unit's ability
-     * @param num the ability number to be used
+     * Gets a unit's ability
+     * @param target target of the ability
      */
-    public abstract void useAbility(int num);
+    public abstract Action getAbility(Position target);
+    
+    /**
+     * Returns the range of the unit's ability
+     * @return the range of the ability 
+     */
+    public abstract double getRange();
 }
