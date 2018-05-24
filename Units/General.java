@@ -26,7 +26,7 @@ public class General extends Unit
      */
     public Action getAbility(Position target)
     {
-        return attack();
+        new Action(target, current, "attack");
     }
     
     /**
