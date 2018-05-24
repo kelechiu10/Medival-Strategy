@@ -1,0 +1,20 @@
+/**
+ * class HealingPotion is a healing potion item that heals for 10hp
+ *
+ */
+public class HealingPotion extends Item
+{
+
+    private int healthPower;
+    
+    public HealingPotion()
+    {
+        usesRemaining = 3;
+        healthPower = 10;
+    }
+    
+    public void use(Unit u)
+    {
+        u.heal(healthPower);
+    }
+}
