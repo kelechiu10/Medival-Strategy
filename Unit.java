@@ -73,4 +73,10 @@ public abstract class Unit
      * @return the range of the ability 
      */
     public abstract double getRange();
+    
+    /**
+     * Gets the power of the unit's ability
+     * @return the power of the unit's ability
+     */
+    public abstract int getAbilityPower();
 }
