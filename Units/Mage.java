@@ -37,4 +37,13 @@ public class Mage extends Unit
     {
         return 5.0;
     }
+    
+    /**
+     * Gets the power of the unit's ability
+     * @return the power of the unit's ability
+     */
+    public int getAbilityPower()
+    {
+        return 16;
+    }
 }
