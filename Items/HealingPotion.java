@@ -13,8 +13,12 @@ public class HealingPotion extends Item
         healthPower = 10;
     }
     
-    public void use(Unit u)
+    /**
+     * getPower returns the potency of the healing potion
+     * @return int healing power
+     */
+    public int getPower()
     {
-        u.heal(healthPower);
+        return healthPower();
     }
 }
