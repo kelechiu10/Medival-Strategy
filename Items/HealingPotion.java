@@ -4,21 +4,9 @@
  */
 public class HealingPotion extends Item
 {
-
-    private int healthPower;
-    
     public HealingPotion()
     {
         usesRemaining = 3;
-        healthPower = 10;
-    }
-    
-    /**
-     * getPower returns the potency of the healing potion
-     * @return int healing power
-     */
-    public int getPower()
-    {
-        return healthPower();
+        potency = 10;
     }
 }
