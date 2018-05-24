@@ -1,6 +1,6 @@
 /**
  * Archer Unit Class
- * Attack: 13
+ * Attack: 10
  * Defence: 10
  * Health: 45
  * Movement: 5
@@ -17,7 +17,7 @@ public class Archer extends Unit
      */
     public Archer()
     {
-        super(13,10,45,5);
+        super(10,10,45,5);
     }
     
     /**
