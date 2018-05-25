@@ -10,8 +10,7 @@ public abstract class Unit
     protected int maxHealth;
     protected int health;
     protected int moveSpeed;
-    protected Position position;
-    
+    protected Position current;
     /**
      * Constructor for unit
      * @param atk attack of the unit
@@ -27,6 +26,10 @@ public abstract class Unit
         moveSpeed = move;
     }
     
+    public void addMove(int m){moveSpeed += m;}
+    public void addRange(int r){ //NEEDED TO BE IN UNIT NOT LOWER}
+    public void addAttack(int a){attack += a;}
+    
     public int getAttackValue()
     {
         return attack;
@@ -38,7 +41,7 @@ public abstract class Unit
      */
     public void move(Position area)
     {
-        position = area;
+        current = area;
     }
     
     /**
