@@ -27,7 +27,7 @@ public abstract class Unit
     }
     
     public void addMove(int m){moveSpeed += m;}
-    public void addRange(int r){ //NEEDED TO BE IN UNIT NOT LOWER}
+    public abstract void addRange(int r);
     public void addAttack(int a){attack += a;}
     
     public int getAttackValue()
