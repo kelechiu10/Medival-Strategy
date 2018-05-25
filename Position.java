@@ -25,7 +25,7 @@
      * Returns the x position
      * @return the x position
      */
-    public getX()
+    public int getX()
     {
         return xPos;
     }
@@ -34,7 +34,7 @@
      * Returns the y position
      * @return the y position
      */
-    public getY()
+    public int getY()
     {
         return yPos;
     }
@@ -44,7 +44,7 @@
      * @param x new x position
      * @param y new y position
      */
-    public setPos(int x, int y)
+    public void setPos(int x, int y)
     {
         xPos = x;
         yPos = y;
