@@ -1,27 +1,27 @@
 /**
- * Soldier Unit Class
- * Attack: 12
- * Defence: 12
- * Health: 45
- * Movement: 6
+ * Knight Unit Class
+ * Attack: 20
+ * Defence: 20
+ * Health: 65
+ * Movement: 5
  * Abilities:
  * -(no abilities)
  *
  * @author Matthew Oh
  * @version 5/22/18
  */
-public class Soldier extends Unit
+public class Knight extends Unit
 {
     /**
-     * Constructor for Soldier
+     * Constructor for Knight
      */
-    public Soldier()
+    public Knight()
     {
         super(20,20,65,5);
     }
     
     /**
-     * Gets Soldier's ability
+     * Gets Knight's ability
      * @param target target of the ability
      */
     public Action getAbility(Position target)
@@ -30,7 +30,7 @@ public class Soldier extends Unit
     }
     
     /**
-     * Returns the range of the unit's ability
+     * Returns the range of the Knight's ability
      * @return the range of the ability 
      */
     public double getRange()
@@ -39,11 +39,11 @@ public class Soldier extends Unit
     }
     
     /**
-     * Gets the power of the Soldier's ability
-     * @return the power of the Soldier's ability
+     * Gets the power of the Knight's ability
+     * @return the power of the Knight's ability
      */
     public int getAbilityPower()
     {
-        return 12;
+        return 20;
     }
 }
