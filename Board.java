@@ -1,13 +1,13 @@
+import java.util.ArrayList;
 /**
  * Board Class
  * @author Claudia Xue
  * @version 5/16/18
  */
-
-public static class Board
+public class Board
 {
   private Space[][] spaces;
-  private final SIZE;//15 for now
+  private final int SIZE;//15 for now
   
   public Board(int size)
   {
@@ -18,33 +18,38 @@ public static class Board
   
   public void fillBoard()
   {
-    for(Space spc: spaces)
+    for(Space[] spc: spaces)
     {
-      spc = new Grass();
+        for(int k = 0; k < spc.length; k++)
+        {
+            spc[k] = new Grass();
+        }
     }
+    
     
   }
   
   public void placeUnits(Player[] players)
   {
-    Unit[] unit0 = players[0].getUnits(), unit1 = players[1].getUnits();
+    ArrayList<Unit> unit0 = players[0].getUnits();
+    ArrayList<Unit> unit1 = players[1].getUnits();
     int unitNum = 0;
-    for(int row = 0; row < unit0/2; row++)
+    for(int row = 0; row < unit0.size()/2; row++)
     {
       for(int col = 0; col < 2; col++)
       {
-        spaces[row][col].setUnit(unit0[unitNum]);
-        unit0[unitNum].move(new Position(row, col));
+        spaces[row][col].setUnit(unit0.get(unitNum));
+        unit0.get(unitNum).move(new Position(row, col));
         unitNum++;
       }
     }
     unitNum = 0;
-    for(int row = SIZE - 1; row > SIZE - unit0/2 - 1; row--)
+    for(int row = SIZE - 1; row > SIZE - unit0.size()/2 - 1; row--)
     {
       for(int col = SIZE - 1; col > SIZE - 3; col--)
       {
-        spaces[row][col].setUnit(unit1[unitNum]);
-        unit1[unitNum].move(new Position(row, col));
+        spaces[row][col].setUnit(unit1.get(unitNum));
+        unit1.get(unitNum).move(new Position(row, col));
         unitNum++;
       }
     }
