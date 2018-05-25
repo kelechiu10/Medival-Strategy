@@ -30,7 +30,7 @@ public class Priest extends Unit
     }
     
     /**
-     * Returns the range of the Archers's ability
+     * Returns the range of the Priest's ability
      * @return the range of the ability 
      */
     public double getRange()
@@ -39,8 +39,8 @@ public class Priest extends Unit
     }
     
     /**
-     * Gets the power of the Archers's ability
-     * @return the power of the Archer's ability
+     * Gets the power of the Priest's ability
+     * @return the power of the Preist's ability
      */
     public int getAbilityPower()
     {
