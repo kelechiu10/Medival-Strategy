@@ -20,7 +20,7 @@ public class Item
      * useItem returns the potency of the item and decreases it's uses remaining by one
      * @return integer potency
      */
-    public int useItem();
+    public int useItem()
     {
         usesRemaining--;
         return potency;
