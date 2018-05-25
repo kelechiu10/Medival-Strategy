@@ -1,5 +1,5 @@
 /**
- * Knight Unit Class
+ * Runner Unit Class
  * Attack: 15
  * Defence: 10
  * Health: 45
