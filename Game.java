@@ -18,10 +18,10 @@ public class Game
    public Game()
    {
        DEFAULTITEMS = new Item[4];
-      DEFAULTITEMS[0] = new Item(10, 3, HealPotion);
-      DEFAULTITEMS[1] = new Item(1, 2, RangePotion); 
-      DEFAULTITEMS[2] = new Item(5, 2, AttckPotion);
-      DEFAULTITEMS[3] = new Item(1, 2, MovePotion);
+      DEFAULTITEMS[0] = new Item(10, 3, "HealPotion");
+      DEFAULTITEMS[1] = new Item(1, 2, "RangePotion"); 
+      DEFAULTITEMS[2] = new Item(5, 2, "AttckPotion");
+      DEFAULTITEMS[3] = new Item(1, 2, "MovePotion");
       board = new Board(16);
       players = new Player[2];
       players[0] = new Player();
@@ -40,7 +40,7 @@ public class Game
    {
       Action tempAction;
       boolean nextPlayer = true;
-      while(!isOver)
+      while(!isOver())
       {
           nextTurn();
           if(turnNumber % 4 == 0)
@@ -57,20 +57,20 @@ public class Game
           
           if(attackActionValid(tempAction))
           {
-              board.dealDamage(tempAction.getTarget(), ((board.getSpace(tempAction.getTarget()))));
+              board.dealDamage(tempAction.getTarget(), ((board.getSpace(tempAction.getTarget())).getUnit().getAttackValue()));
           }
           else
               if(moveActionValid(tempAction))
               {
                  //switch the two in the board and then change it in the unit itself
                  (board.getSpace(tempAction.getTarget())).setUnit((board.getSpace(tempAction.getCurrent())).getUnit());
-                 (board.getSpace(tempAciton.getCurrent())).setUnit(null);
+                 (board.getSpace(tempAction.getCurrent())).setUnit(null);
                  (board.getSpace(tempAction.getCurrent())).getUnit().move(tempAction.getTarget());
               }
               else
-                 if(healActionValid(tempAciton))
+                 if(healActionValid(tempAction))
                  {
-                    int healPower = ((Priest)((board.getSpace(tempAction.getTarget())).getUnit()).getAbilityPower());;
+                    int healPower = ((Priest)(board.getSpace(tempAction.getTarget())).getUnit()).getAbilityPower();
                     (board.getSpace(tempAction.getTarget())).getUnit().heal(healPower);
                  } 
                  else
@@ -118,9 +118,9 @@ public class Game
    {
       //SOMEHOW GETS INPUT FROM THE USER AND STORES IN THE THREE VARIABLES BELOW
       
-      Position current = new Position(1,2);
-      Position target = new Position(2,3);
-      String operation = "Temp";
+      Position current = new Position(0,0);
+      Position target = new Position(1,1);
+      String operation = "Attack";
       
       Action action = new Action(target, current, operation);
       
@@ -131,7 +131,7 @@ public class Game
    }
    
    /**
-    * pickUpItemValid checks if the Aciton passed is a valid pick up item action
+    * pickUpItemValid checks if the Action passed is a valid pick up item action
     *
     * the Action object will be formatted as follows for picking up items
     *    current x: index on default items array
@@ -155,19 +155,19 @@ public class Game
          }
          else
             if(a.getOperation().indexOf("MovePotion") > -1 
-               && DEFAULTITEMS[a.getCurrent().getX()].getItem(a.getCurrent().getY()).getName().equals("MovePotion"))
+               && DEFAULTITEMS[a.getCurrent().getX()].getName().equals("MovePotion"))
             {
                return true;
             }
             else
                if(a.getOperation().indexOf("RangePotion") > -1 
-                  && DEFAULTITEMS[a.getCurrent().getX()].getItem(a.getCurrent().getY()).getName().equals("RangePotion"))
+                  && DEFAULTITEMS[a.getCurrent().getX()].getName().equals("RangePotion"))
                {
                   return true;
                }
                else
                   if(a.getOperation().indexOf("AttackPotion") > -1 
-                     && DEFAULTITEMS[a.getCurrent().getX()].getItem(a.getCurrent().getY()).getName().equals("AttackPotion"))
+                     && DEFAULTITEMS[a.getCurrent().getX()].getName().equals("AttackPotion"))
                   {
                      return true;
                   }
@@ -238,7 +238,7 @@ public class Game
       if(!a.getOperation().equals("heal"))
          return false;
       else
-         if(Math.sqrt(Math.pow(a.getCurrent().getX + a.getTarget().getX, 2) 
+         if(Math.sqrt(Math.pow(a.getCurrent().getX() + a.getTarget().getX(), 2) 
             + Math.pow(a.getCurrent().getY() + a.getTarget().getY(), 2)) 
             <= 4)
          {
@@ -261,12 +261,12 @@ public class Game
     *
     * @return boolean if action is valid
     */
-   private boolean moveAcitonValid(Action a)
+   private boolean moveActionValid(Action a)
    {
       if(!a.getOperation().equals("move"))
          return false;
       else
-         if(Math.sqrt(Math.pow(a.getCurrent().getX + a.getTarget().getX, 2) 
+         if(Math.sqrt(Math.pow(a.getCurrent().getX() + a.getTarget().getX(), 2) 
             + Math.pow(a.getCurrent().getY() + a.getTarget().getY(), 2)) 
             <= board.getSpace(a.getCurrent()).getUnit().getMoveSpeed())
          {
@@ -294,7 +294,7 @@ public class Game
       if(!a.getOperation().equals("attack"))
           return false;
       else //applies distance formula and then checks if it is less than the range value
-         if(Math.sqrt(Math.pow(a.getCurrent().getX + a.getTarget().getX, 2) + Math.pow(a.getCurrent().getY() + a.getTarget().getY(), 2)) <= board.getSpace(a.getCurrent()).getUnit().getRange())
+         if(Math.sqrt(Math.pow(a.getCurrent().getX() + a.getTarget().getX(), 2) + Math.pow(a.getCurrent().getY() + a.getTarget().getY(), 2)) <= board.getSpace(a.getCurrent()).getUnit().getRange())
          {
                return true;
          }
