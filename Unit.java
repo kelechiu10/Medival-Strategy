@@ -47,7 +47,7 @@ public abstract class Unit
      */
     public int getMoveSpeed()
     {
-        return moveSpeed();
+        return moveSpeed;
     }
     
     /**
