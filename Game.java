@@ -103,12 +103,12 @@ public class Game
                     else
                        if(pickUpItemValid(tempAction))
                        {
-                          
+                          player[tempAction.getCurrent().getY()].pickUpItem(DEFAULTITEMS[tempAction.getCurrent().getX()]), tempAction.getTarget().getX());
                        }
            turnNumber++;
-          }
-          
       }
+          
+   }
                                          
    /**
     * nextTurn gets the input from the user and sends this input back to the active method
@@ -174,6 +174,7 @@ public class Game
                   else
                      return false;
    }
+   
    /**
     * itemActionValid checks if the Action passed is a valid item action
     * 
@@ -266,7 +267,8 @@ public class Game
       if(!a.getOperation().equals("move"))
          return false;
       else
-         if(Math.sqrt(Math.pow(a.getCurrent().getX() + a.getTarget().getX(), 2) 
+         if(board.getSpace(a.getCurrent()).walkable() &&
+            Math.sqrt(Math.pow(a.getCurrent().getX() + a.getTarget().getX(), 2) 
             + Math.pow(a.getCurrent().getY() + a.getTarget().getY(), 2)) 
             <= board.getSpace(a.getCurrent()).getUnit().getMoveSpeed())
          {
@@ -275,6 +277,7 @@ public class Game
          else
             return false;
    }
+   
    /**
     * attackActionValid checks if the action passed is an attack action which is within range
     *
@@ -290,10 +293,9 @@ public class Game
     */
    private boolean attackActionValid(Action a)
    {
-      int rangeTemp;
       if(!a.getOperation().equals("attack"))
           return false;
-      else //applies distance formula and then checks if it is less than the range value
+      else
          if(Math.sqrt(Math.pow(a.getCurrent().getX() + a.getTarget().getX(), 2) + Math.pow(a.getCurrent().getY() + a.getTarget().getY(), 2)) <= board.getSpace(a.getCurrent()).getUnit().getRange())
          {
                return true;
