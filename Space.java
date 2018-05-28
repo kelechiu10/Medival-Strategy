@@ -1,9 +1,9 @@
 /**
  * Space Abstract Class
- * @author Claudia Xue, Matthew Oh
+ * @author Claudia Xue, Matthew Oh, Kelechi Uhegbu
  * @version 5/24/18
  */
-public abstract Space
+public abstract class Space
 {
     protected String terrain;
     protected Unit unit;
