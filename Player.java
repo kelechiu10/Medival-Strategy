@@ -2,14 +2,14 @@ import java.util.ArrayList;
 /**
  * Player class
  * holds an array of Units and an array of Items and can do actions
- * @author Aemilia Russ
+ * @author Aemilia Russ (edited by Kelechi Uhegbu)
  * @version 21 May, 2018
  */
  public class Player
  {
  
     private ArrayList<Unit> units;
-    private Item[] item;
+    private Item[] items;
     private Action action;
     
     /**
@@ -50,7 +50,7 @@ import java.util.ArrayList;
      */
     public void setAction(Action act)
     {
-        aciton = act;
+        action = act;
     }
     
     /**
@@ -63,6 +63,13 @@ import java.util.ArrayList;
         return units.get(index);
     }
     
+    /**
+     * getUnits returns the whole list of units that the Player has
+     */
+    public ArrayList<Unit> getUnits()
+    {
+    	return units;
+    }
     /**
      * isDead() returns true if the player has no more units, otherwise, returns false
      * @return boolean if Dead
@@ -82,7 +89,7 @@ import java.util.ArrayList;
      */
     public Item useItem(int index)
     {
-        return item[index]
+        return items[index];
     }
     
     /**
@@ -91,7 +98,7 @@ import java.util.ArrayList;
      */
     public void pickUpItem(Item newItem, int index)
     {
-        item[index] = newItem;
+        items[index] = newItem;
     }
     
     /**
@@ -100,7 +107,7 @@ import java.util.ArrayList;
      */
     public String getItemList()
     {
-        return "1: " + item[0] + " 2: " + item[1] + " 3: " + item[3];
+        return "1: " + items[0] + " 2: " + items[1] + " 3: " + items[3];
     }
     
  }
