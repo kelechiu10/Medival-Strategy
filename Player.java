@@ -9,7 +9,7 @@ import java.util.ArrayList;
  {
  
     private ArrayList<Unit> units;
-    private Item[] item;
+    private Item[] items;
     private Action action;
     
     /**
@@ -30,7 +30,10 @@ import java.util.ArrayList;
         units.add(new Knight());
         units.add(new Runner());
         
-        items = {new Item(10, 3, HealPotion), new Item(10, 3, HealPotion), new Item(10, 3, HealPotion)};
+        items = new Item[3];
+        items[0] = new Item(10, 3, "HealPotion");
+        items[1] = new Item(10, 3, "HealPotion");
+        items[2] = new Item(10, 3, "HealPotion");
     }
     
     /**
@@ -50,7 +53,7 @@ import java.util.ArrayList;
      */
     public void setAction(Action act)
     {
-        aciton = act;
+        action = act;
     }
     
     /**
@@ -61,6 +64,11 @@ import java.util.ArrayList;
     public Unit getUnit(int index)
     {
         return units.get(index);
+    }
+    
+    public ArrayList getUnits()
+    {
+        return units;
     }
     
     /**
@@ -82,16 +90,20 @@ import java.util.ArrayList;
      */
     public Item useItem(int index)
     {
-        return item[index]
+        return items[index];
     }
     
+    public Item getItem(int index)
+    {
+        return items[index];
+    }
     /**
      * pickUpItem overwrites the item at index on the item array
      * @param Item picked up item, integer index on Item array
      */
     public void pickUpItem(Item newItem, int index)
     {
-        item[index] = newItem;
+        items[index] = newItem;
     }
     
     /**
@@ -100,7 +112,7 @@ import java.util.ArrayList;
      */
     public String getItemList()
     {
-        return "1: " + item[0] + " 2: " + item[1] + " 3: " + item[3];
+        return "1: " + items[0] + " 2: " + items[1] + " 3: " + items[3];
     }
     
  }

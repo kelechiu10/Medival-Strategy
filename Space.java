@@ -3,7 +3,7 @@
  * @author Claudia Xue, Matthew Oh
  * @version 5/24/18
  */
-public abstract Space
+public abstract class Space
 {
     protected String terrain;
     protected Unit unit;
@@ -38,6 +38,15 @@ public abstract Space
         unit = u;
     }
   
+    /**
+     * Removes the unit on this tile
+     * 
+     */
+    public void removeUnit()
+    {
+        unit = null;
+    }
+    
     /**
      * Returns the unit on the space
      * @return the unit on the space
