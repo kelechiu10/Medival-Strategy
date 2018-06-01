@@ -13,23 +13,25 @@
  * Write a description of JavaFX class Test here.
  *
  * @author Claudia Xue
- * @version 5/28/2018
+ * @version 5/31/18
  */
-public class Test extends Application
+public class BoardGUI extends Application
 {
+    private Board board = new Board(16);
+    //private Board board;
+    
     @Override
     public void start(Stage stage) throws Exception
     {
-        // load the image
-        Image image1 = new Image("ground1.png");
-        Image image2 = new Image("ground2.png");
-        Image image3 = new Image("ground3.png");
-        Image image4 = new Image("pause.png");
+        //Game game = new Game();
+        //board = game.getBoard();
         
-        Button pause = new Button("", new ImageView(image4));
+        Image pauseB = new Image("pause.png");
+        
+        Button pause = new Button("", new ImageView(pauseB));
         Label player = new Label("Player 1's Turn");
         Label moves = new Label("Moves Left: 3");
-        HBox topBar = new HBox(325);
+        HBox topBar = new HBox(300);
         topBar.getChildren().addAll(player, moves, pause);
 
         BorderPane border = new BorderPane();
@@ -38,41 +40,50 @@ public class Test extends Application
         
         border.setTop(topBar);
         GridPane gridPic = new GridPane();
-        GridPane gridBut = new GridPane();
+        GridPane gridUnit = new GridPane();
+        GridPane gridButton = new GridPane();
         
-        // simple displays ImageView the image as is
+        // puts in spaces from 
         for(int row = 0; row < 16; row++)
         {
             for(int col = 0; col < 16; col++)
             {
-                int num = (int)(Math.random() * 6);
-                if(num == 5)
-                    gridPic.add(new MenuItem("", new ImageView(image3)), row, col);
-                else
-                    if(num == 4)
-                        gridPic.add(new ImageView(image2), row, col);
-                    else
-                        gridPic.add(new ImageView(image1), row, col);
+                String str = board.getSpace(new Position(row,col)).getGraphic();
+                Menu menu = new Menu();
+                menu.setStyle("-fx-background-color: transparent;");
+                menu.getItems().add(new MenuItem("Attack"));
+                MenuBar mBar = new MenuBar(menu);
+                Image temp = new Image(str + ".png");
+                gridPic.add(new ImageView(temp), row, col);
+                gridButton.add(mBar, row, col);
             }
         }
         
+        for(int count = 0; count < 16; count++)
+        {
+            gridUnit.getColumnConstraints().add(new ColumnConstraints(50));
+            gridUnit.getRowConstraints().add(new RowConstraints(50));
+        }
+        
+        gridUnit.add(new ImageView(new Image("ArcherBlue3.png")),5,6);
+        
         StackPane board = new StackPane();
-        board.getChildren().addAll(gridBut, gridPic);
+        board.getChildren().addAll(gridPic, gridUnit, gridButton);
         border.setCenter(board);
         
         VBox characters = new VBox();
         characters.getChildren().add(new Button("End Turn"));
         border.setRight(characters);
 
-
         stage.setTitle("ImageView");
-        stage.setWidth(40);
-        stage.setHeight(50);
+        stage.setWidth(1000);
+        stage.setHeight(1000);
         stage.setScene(scene); 
         stage.sizeToScene(); 
+        //game.runGame();
         stage.show(); 
     }
-
+    
     public static void main(String[] args) {
         Application.launch(args);
     }
