@@ -32,16 +32,19 @@ public class GameController {
 		
 		for( Node node : guiBoard.getChildren())
 		{
-			ImageView cell = (ImageView) node;
-			num = (int) (Math.random() * 6);
-			if(num < 2)
-				cell.setImage(ground1);
-			else
-				if(num < 4)
-					cell.setImage(ground2);
+			if(node instanceof ImageView)
+			{
+				ImageView cell = (ImageView) node;
+				num = (int) (Math.random() * 6);
+				if(num < 2)
+					cell.setImage(ground1);
 				else
-					cell.setImage(ground3);
-			cell.setOnMouseClicked(this::location);
+					if(num < 4)
+						cell.setImage(ground2);
+					else
+						cell.setImage(ground3);
+				cell.setOnMouseClicked(this::location);
+			}
 		}
 	} 
 	
