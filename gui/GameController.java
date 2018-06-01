@@ -48,9 +48,9 @@ public class GameController {
 	public void location(Event e)
 	{
 		Node cell = (Node) e.getSource();
-		GridPane pane = (GridPane) cell.getParent();
-		int row = pane.getRowIndex(cell);
-		int col = pane.getColumnIndex(cell);
+		//GridPane pane = (GridPane) cell.getParent();
+		int row = GridPane.getRowIndex(cell);
+		int col = GridPane.getColumnIndex(cell);
 		System.out.println(row + " " + col);
 	}
 
