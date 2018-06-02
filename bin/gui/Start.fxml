@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<TabPane prefHeight="285.0" prefWidth="341.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.StartController">
+   <tabs>
+      <Tab closable="false" text="Start">
+         <content>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Text layoutX="92.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Insert Game Name" textAlignment="CENTER" wrappingWidth="123.6708984375" />
+                  <Button fx:id="button" layoutX="128.0" layoutY="92.0" mnemonicParsing="false" onAction="#startGame" text="Start" />
+               </children>
+            </Pane>
+         </content>
+      </Tab>
+      <Tab text="Instructions">
+         <content>
+            <ScrollPane prefHeight="106.0" prefWidth="373.0">
+               <content>
+                  <TextArea fx:id="text" editable="false" prefHeight="247.0" prefWidth="341.0" text="This is a 2 player strategy game &#10;similar to popular favorites such as Chess and Fire Emblem.&#10;&#10;Move your players across the grid in order to defeat the General.&#10;&#10;Whoever defeats the the opponent's general first wins!&#10;By:&#10;Mathew Oh&#10;Amelia Russ&#10;Kelechi Uhegbu&#10;Claudie Xue&#10;&#10;And art by:&#10;Shawn Oh&#10;Edward Xie" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextArea>
+               </content>
+            </ScrollPane>
+         </content>
+      </Tab>
+   </tabs>
+</TabPane>
