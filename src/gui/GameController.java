@@ -1,23 +1,28 @@
 package gui;
 
-import logic.Position;
 import javafx.event.Event;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import logic.Position;
+import logic.Game;
 
 public class GameController {
-	public Label turnLabel;
-	public GridPane guiBoard;
-	public GridPane unitPane;
-	public Button endButton;
-	public Button loadButton;
+	@FXML public Label turnLabel;
+	@FXML public GridPane guiBoard;
+	@FXML public GridPane unitPane;
+	@FXML public Button endButton;
+	@FXML public Button loadButton;
+	
+	//private Game game = new Game();
 	private Position startPos = new Position(-1,-1);
 	private Position endPos = new Position(-1,-1);
 	private ImageView oldView = null;
+	
 	public void endTurn()
 	{
 		if (turnLabel.getText().equals("P1 Turn"))

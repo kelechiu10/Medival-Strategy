@@ -1,4 +1,5 @@
 package units;
+import logic.*;
 /**
  * Archer Unit Class
  * Attack: 10
