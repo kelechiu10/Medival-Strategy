@@ -1,5 +1,6 @@
 package gui;
 
+import logic.Position;
 import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -14,7 +15,9 @@ public class GameController {
 	public GridPane unitPane;
 	public Button endButton;
 	public Button loadButton;
-	
+	private Position startPos = new Position(-1,-1);
+	private Position endPos = new Position(-1,-1);
+	private ImageView oldView = null;
 	public void endTurn()
 	{
 		if (turnLabel.getText().equals("P1 Turn"))
@@ -51,24 +54,51 @@ public class GameController {
 		{
 			if(node instanceof ImageView)
 			{
+				ImageView unit = (ImageView) node;
 				if(num < 32 || num > 240)
 				{
-					ImageView unit = (ImageView) node;
 					unit.setImage(new Image("KnightBLue.png"));
-					unit.setOnMouseClicked(this::location);
 				}
+				unit.setOnMouseClicked(this::location);
 				num++;
 			}
 		}
 	} 
 	
+	/**
+	 * Mouse Event to get two positions on the gridpane
+	 * @param e	event
+	 */
 	public void location(Event e)
 	{
-		Node cell = (Node) e.getSource();
+		
+		ImageView cell = (ImageView) e.getSource();
 		//GridPane pane = (GridPane) cell.getParent();
 		int row = GridPane.getRowIndex(cell);
 		int col = GridPane.getColumnIndex(cell);
+		if(startPos.getX() < 0 && oldView == null && cell.getImage() != null)
+		{
+			startPos.setPos(row, col);
+			oldView = cell;
+		}
+		else
+			if(oldView != null && cell.getImage() == null)
+			{
+				endPos.setPos(row, col);
+				moveUnit(cell);					
+			}
 		System.out.println(row + " " + col);
 	}
 
+	/**
+	 * moves the unit across gridPane
+	 * @param cell the image view where the image is to be move to
+	 */
+	private void moveUnit(ImageView cell)
+	{
+		cell.setImage(oldView.getImage());
+		oldView.setImage(null);
+		oldView = null;
+		startPos.setPos(-1, -1);
+	}
 }
