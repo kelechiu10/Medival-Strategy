@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 public class GameController {
 	public Label turnLabel;
 	public GridPane guiBoard;
+	public GridPane unitPane;
 	public Button endButton;
 	public Button loadButton;
 	
@@ -24,7 +25,7 @@ public class GameController {
 	
 	public void init()
 	{
-		int num;
+		int num = 0;
 		Image ground1 = new Image("ground1.png"); 
 		Image ground2 = new Image("ground2.png"); 
 		Image ground3 = new Image("ground3.png"); 
@@ -43,7 +44,20 @@ public class GameController {
 						cell.setImage(ground2);
 					else
 						cell.setImage(ground3);
-				cell.setOnMouseClicked(this::location);
+				//cell.setOnMouseClicked(this::location);
+			}
+		}
+		for( Node node : unitPane.getChildren())
+		{
+			if(node instanceof ImageView)
+			{
+				if(num < 32 || num > 240)
+				{
+					ImageView unit = (ImageView) node;
+					unit.setImage(new Image("KnightBLue.png"));
+					unit.setOnMouseClicked(this::location);
+				}
+				num++;
 			}
 		}
 	} 
