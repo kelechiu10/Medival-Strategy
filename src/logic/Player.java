@@ -1,4 +1,5 @@
 package logic;
+import units.*;
 import java.util.ArrayList;
 /**
  * Player class
@@ -82,7 +83,7 @@ import java.util.ArrayList;
         return units.get(index);
     }
     
-    public ArrayList getUnits()
+    public ArrayList<Unit> getUnits()
     {
         return units;
     }

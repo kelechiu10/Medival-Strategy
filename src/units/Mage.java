@@ -1,4 +1,5 @@
 package units;
+import logic.*;
 /**
  * Mage Unit Class
  * Attack: 12

@@ -25,9 +25,9 @@ public class GameController {
 	public void init()
 	{
 		int num;
-		Image ground1 = new Image("assets/ground1.png"); 
-		Image ground2 = new Image("assets/ground2.png"); 
-		Image ground3 = new Image("assets/ground3.png"); 
+		Image ground1 = new Image("ground1.png"); 
+		Image ground2 = new Image("ground2.png"); 
+		Image ground3 = new Image("ground3.png"); 
 		
 		
 		for( Node node : guiBoard.getChildren())

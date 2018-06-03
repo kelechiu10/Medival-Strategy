@@ -1,4 +1,5 @@
 package units;
+import logic.*;
 /**
  * Priest Unit Class
  * Attack: 10

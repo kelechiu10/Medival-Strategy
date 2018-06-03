@@ -1,3 +1,5 @@
+package tiles;
+
 import java.util.NoSuchElementException;
 /**
  * Grass Space Class

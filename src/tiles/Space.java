@@ -1,3 +1,5 @@
+package tiles;
+import units.*;
 /**
  * Space Abstract Class
  * @author Claudia Xue, Matthew Oh
@@ -20,6 +22,12 @@ public abstract class Space
         walkable = walk;
         terrain = ter;
         graphic = graph;
+    }
+    
+    public Space(boolean walk, String ter)
+    {
+        walkable = walk;
+        terrain = ter;
     }
     
     /**

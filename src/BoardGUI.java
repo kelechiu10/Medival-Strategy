@@ -1,3 +1,5 @@
+
+
  import javafx.application.Application;
  import javafx.scene.Scene; 
  import javafx.scene.control.*; 
@@ -5,7 +7,8 @@
  import javafx.scene.image.ImageView;
  import javafx.scene.layout.*;
  import javafx.stage.Stage; 
- 
+ import logic.*;
+ import tiles.*;
 /**
  * Write a description of JavaFX class Test here.
  *
@@ -24,7 +27,7 @@ public class BoardGUI extends Application
         //board = game.getBoard();
         
         Image pauseB = new Image("pause.png");
-        Image mt = new Image("Blank.png");
+        //Image mt = new Image("Blank.png");
         
         Button pause = new Button("", new ImageView(pauseB));
         Label player = new Label("Player 1's Turn");

@@ -1,4 +1,6 @@
 package units;
+import logic.Action;
+import logic.Position;
 /**
  * Abstract Class Unit
  * @author Matthew Oh

@@ -1,4 +1,5 @@
 package units;
+import logic.*;
 /**
  * Knight Unit Class
  * Attack: 20

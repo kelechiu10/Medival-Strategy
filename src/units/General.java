@@ -1,4 +1,5 @@
 package units;
+import logic.*;
 /**
  * General Unit Class
  * Attack: 12

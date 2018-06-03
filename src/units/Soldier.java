@@ -1,4 +1,6 @@
 package units;
+import logic.*;
+
 /**
  * Soldier Unit Class
  * Attack: 12

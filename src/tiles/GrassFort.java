@@ -1,3 +1,5 @@
+package tiles;
+
 /**
  * Grass Space Class
  * @author Aemilia Russ

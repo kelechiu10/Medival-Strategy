@@ -1,5 +1,5 @@
 package logic;
-
+import units.*;
 /**
  * Game is the class that runs the game (and must be called into aciton from a main class)
  *

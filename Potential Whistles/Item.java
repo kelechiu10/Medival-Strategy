@@ -1,3 +1,4 @@
+
 /**
  * Class Item is the class for all items
  * @author Aemilia Russ
@@ -37,7 +38,7 @@ public class Item
     
     /**
      * getName returns the name of the Item
-     * @retrun String name
+     * @return String name
      */
     public String getName()
     {
@@ -45,7 +46,7 @@ public class Item
     }
     
     /**
-     * #OVERIDE (I dont remember how to do this javadoc properly and im too lazy to fix it
+     * @OVERIDE (I dont remember how to do this javadoc properly and im too lazy to fix it
      * @return String representation of the item including name, uses, and potency
      */
     public String toString()

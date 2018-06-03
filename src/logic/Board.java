@@ -1,4 +1,6 @@
 package logic;
+import tiles.*;
+import units.*;
 import java.util.ArrayList;
 /**
  * Board Class
