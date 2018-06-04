@@ -80,29 +80,6 @@ public class Game
    }
                                          
    /**
-    * nextTurn gets the input from the user and sends this input back to the active method
-    * 
-    */
-   private void nextTurn()
-   {
-       //changes the turn of the player
-       playerTurn = !playerTurn;
-       
-       //recieves action from gui, replace when gui is implemented
-       board.printBoard();
-       Position current = new Position(Main.inputInt(),Main.inputInt());
-       Position target = new Position(Main.inputInt(),Main.inputInt());
-       String operation = Main.inputLine();
-       Action action = new Action(target, current, operation);
-      
-       //sets the action of the palyer
-       if(turnNumber % 2 == 0)
-           players[0].setAction(action);
-       else
-           players[1].setAction(action);
-   }
-                                         
-   /**
     * healActionValid checks if the Action passed is a valid heal action
     * this only checks if the Action passed is of operation "heal" and is within 4 range
     *
