@@ -89,20 +89,15 @@ public class GameController {
 				mButton.setPrefHeight(LEN);
 				mButton.setPrefWidth(LEN);
 				mButton.setOpacity(0);
-				//mButton.setOnContextMenuRequested(e ->
-				//{
-					//e.consume();
-					//showMenu(mButton);
-				//});
+				mButton.setOnMouseClicked(e ->
+				{				
+					mButton.hide();
+					showMenu(e);
+				});
 				ButtonItem item = new ButtonItem(mButton, "move");
 				item.setOnAction(this::location);
 				mButton.getItems().addAll(item);
 				menuPane.add(mButton, col, row);
-				mButton.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, e ->
-				{
-					e.consume();
-					showMenu(e);
-				});
 			}
 		}
 	} 
@@ -150,11 +145,11 @@ public class GameController {
 	{
 		MenuButton button = (MenuButton)e.getSource();
 		Position pos = new Position(GridPane.getRowIndex(button), GridPane.getColumnIndex(button));
-		ImageView view = (ImageView)(unitPane.getChildren().get(pos.getX() * 16 + pos.getY()));
+		ImageView view = (ImageView)getNode(unitPane,pos.getX(),pos.getY());
 		if(view.getImage() != null)
 		{			
 			System.out.println("shown");
-			//button.show();
+			button.show();
 		}
 	}
 	@FXML
@@ -162,5 +157,19 @@ public class GameController {
 	{
 		startPos.setPos(-1,-1);
 		System.out.println("reset");
+	}
+	
+	private Node getNode(GridPane pane, int row, int col)
+	{
+		Node result = null;
+		for(Node cell: pane.getChildren())
+		{
+			if(GridPane.getRowIndex(cell) == row && GridPane.getColumnIndex(cell) == col)
+			{
+				result = cell;
+				break;
+			}
+		}
+		return result;
 	}
 }
