@@ -4,6 +4,7 @@ import units.*;
 import java.util.ArrayList;
 /**
  * Board Class
+ * the Board class has an array of spaces that hold the board for the game
  * @author Claudia Xue
  * @version 5/16/18
  */
