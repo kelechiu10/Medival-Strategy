@@ -11,7 +11,7 @@ import java.util.ArrayList;
  {
  
     private ArrayList<Unit> units;
-    private Item[] items;
+    //private Item[] items;
     private Action action;
     
     /**
@@ -32,10 +32,12 @@ import java.util.ArrayList;
         units.add(new Knight());
         units.add(new Runner());
         
+        /*
         items = new Item[3];
         items[0] = new Item(10, 3, "HealPotion");
         items[1] = new Item(10, 3, "HealPotion");
         items[2] = new Item(10, 3, "HealPotion");
+        */
     }
     
     /**
@@ -100,11 +102,11 @@ import java.util.ArrayList;
         return false;
     }
     
-    /**
+    /*
      * useItem uses the item at the passed index on the target position
      * @param integer index on Item array, Position target to use item
      *
-     */
+     
     public Item useItem(int index)
     {
         return items[index];
@@ -114,10 +116,11 @@ import java.util.ArrayList;
     {
         return items[index];
     }
+    
     /**
      * pickUpItem overwrites the item at index on the item array
      * @param Item picked up item, integer index on Item array
-     */
+     
     public void pickUpItem(Item newItem, int index)
     {
         items[index] = newItem;
@@ -126,10 +129,10 @@ import java.util.ArrayList;
     /**
      * getItemList returns a String representation of the item array
      * @return String list of Items
-     */
+     
     public String getItemList()
     {
         return "1: " + items[0] + " 2: " + items[1] + " 3: " + items[3];
     }
-    
+    */
  }
