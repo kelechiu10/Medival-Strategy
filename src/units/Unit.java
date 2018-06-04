@@ -29,9 +29,11 @@ public abstract class Unit
         moveSpeed = move;
     }
     
+    /*
     public void addMove(int m){moveSpeed += m;}
     public abstract void addRange(int r);
     public void addAttack(int a){attack += a;}
+    */
     
     public int getAttackValue()
     {
