@@ -24,7 +24,7 @@ public class Game
       players[1] = new Player();
       turnNumber = 0;
       board.placeUnits(players);
-      //runGame(Main.getIntegerInput(), Main.getActionInput()); //TO BE DELETED
+      //runGame(Main.getIntegerInput(), Main.getActionInput());
    }
    
    /**
