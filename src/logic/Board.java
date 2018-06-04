@@ -21,13 +21,23 @@ public class Board
   
   public void fillBoard()
   {
+    FileInput inFile = new FileInput("map.txt");
     for(Space[] spc: spaces)
     {
         for(int k = 0; k < spc.length; k++)
         {
-            spc[k] = new Grass();
+            int tile = inFile.readInt();
+            if (tile == 0)
+                spc[k] = new Grass();
+            else
+                if (tile == 1)
+                    spc[k] = new Water();
+                else
+                    spc[k] = new GrassFort();
         }
+              
     }
+  }
     
     
   }
@@ -66,5 +76,22 @@ public class Board
   public void dealDamage(Position pos, int attack)
   {
     spaces[pos.getX()][pos.getY()].takeDamage(attack);
+  }
+
+public void printBoard()
+  {
+      for (int index = 0; index < SIZE; index++)
+      {
+          System.out.print(index % 10 + " ");
+      }
+      System.out.println();
+      for (int row = 0; row < SIZE; row++)
+      {
+          for (int column = 0; column < SIZE; column++)
+          {
+              System.out.print(spaces[row][column].getName() + " ");
+          }
+          System.out.println(row);
+      }
   }
 }
