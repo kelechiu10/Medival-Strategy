@@ -20,7 +20,7 @@
             </Pane>
          </content>
       </Tab>
-      <Tab text="Instructions">
+      <Tab closable="false" text="Instructions">
          <content>
             <ScrollPane prefHeight="106.0" prefWidth="373.0">
                <content>
