@@ -4,32 +4,31 @@ import units.*;
  * Game is the class that runs the game (and must be called into aciton from a main class)
  *
  * @author Aemilia Russ
- * @version 23 May, 2018
+ * @version 4 June, 2018
  */
 public class Game
 {
    private Board board;
    private int turnNumber;
    private Player[] players;
+   private boolean playerTurn;
    
    /**
-    * the constructor for Game creates a standard game with two players, a 16 X 16 board and 10 units per player.
+    * the constructor for Game creates a standard game with two players, a 15 X 15 board and 10 units per player.
     *
     */
    public Game()
    {
-      board = new Board(16);
-      players = new Player[2];
-      players[0] = new Player();
-      players[1] = new Player();
-      turnNumber = 0;
-      board.placeUnits(players);
-      //runGame(Main.getIntegerInput(), Main.getActionInput());
+       board = new Board(16);
+       players = new Player[2];
+       players[0] = new Player();
+       players[1] = new Player();
+       turnNumber = 0;
+       board.placeUnits(players);
    }
    
    /**
     * getBoard returns the board that the game uses
-    * @return Board board the game refers to
     */
    public Board getBoard()
    {
@@ -44,35 +43,63 @@ public class Game
     */
    public boolean runGame(int p, Action act)
    {
-          if(attackActionValid(act))
-          {
-              board.dealDamage(act.getTarget(), ((board.getSpace(act.getCurrent())).getUnit().getAttackValue()));
-             
-              if(p == 1)
-              {
-                  players[0].updateUnitList();
-              }
-              else
-              {
-                  players[1].updateUnitList();
-              }
-          }
-          else
-              if(moveActionValid(act))
-              {
-                 //switch the two in the board and then change it in the unit itself
-                 (board.getSpace(act.getTarget())).setUnit((board.getSpace(act.getCurrent())).getUnit());
-                 (board.getSpace(act.getCurrent())).setUnit(null);
-                 (board.getSpace(act.getCurrent())).getUnit().move(act.getTarget());
-              }
-              else
-                 if(healActionValid(act))
-                 {
-                    int healPower = ((Priest)(board.getSpace(act.getCurrent())).getUnit()).getAbilityPower();
-                    (board.getSpace(act.getTarget())).getUnit().heal(healPower);
-                 } 
-           turnNumber++;
+       //checks if action is a valid attack
+       if(attackActionValid(act))
+       {
+           //carrys out attack
+           board.dealDamage(act.getTarget(), ((board.getSpace(act.getCurrent())).getUnit().getAttackValue()));
+            
+           if(p == 1)
+           {
+               players[0].updateUnitList();
+           }
+           else
+           {
+               players[1].updateUnitList();
+           }
+       }
+       else
+           //checks if action is a valid move
+           if(moveActionValid(act))
+           {
+               //switch the two in the board and then change it in the unit itself
+               (board.getSpace(act.getTarget())).setUnit((board.getSpace(act.getCurrent())).getUnit());
+               (board.getSpace(act.getCurrent())).setUnit(null);
+               (board.getSpace(act.getCurrent())).getUnit().move(act.getTarget());
+           }
+           else
+               //checks if action is a valid heal
+               if(healActionValid(act))
+               {
+                   //heals target
+                   int healPower = ((Priest)(board.getSpace(act.getCurrent())).getUnit()).getAbilityPower();
+                   (board.getSpace(act.getTarget())).getUnit().heal(healPower);
+               } 
+       turnNumber++;
        return !isOver();
+   }
+                                         
+   /**
+    * nextTurn gets the input from the user and sends this input back to the active method
+    * 
+    */
+   private void nextTurn()
+   {
+       //changes the turn of the player
+       playerTurn = !playerTurn;
+       
+       //recieves action from gui, replace when gui is implemented
+       board.printBoard();
+       Position current = new Position(Main.inputInt(),Main.inputInt());
+       Position target = new Position(Main.inputInt(),Main.inputInt());
+       String operation = Main.inputLine();
+       Action action = new Action(target, current, operation);
+      
+       //sets the action of the palyer
+       if(turnNumber % 2 == 0)
+           players[0].setAction(action);
+       else
+           players[1].setAction(action);
    }
                                          
    /**
@@ -91,17 +118,17 @@ public class Game
     */
    private boolean healActionValid(Action a)
    {
-      if(!a.getOperation().equals("heal") || board.getSpace(a.getTarget()).getUnit() == null
-            || board.getSpace(a.getCurrent()).getUnit() == null)
-         return false;
-        else
-             if(Math.sqrt(Math.pow(a.getCurrent().getX() - a.getTarget().getX(), 2) 
-                + Math.pow(a.getCurrent().getY() - a.getTarget().getY(), 2)) 
-                <= board.getSpace(a.getCurrent()).getUnit().getRange())
-             {
+       //checks if the action is a heal, and if targets and users exists
+       if(!a.getOperation().equals("heal") || board.getSpace(a.getTarget()).getUnit() == null
+          || board.getSpace(a.getCurrent()).getUnit() == null)
+           return false;
+       else
+           //checks if the target is within range of user
+           if(Math.sqrt(Math.pow(a.getCurrent().getX() - a.getTarget().getX(), 2) 
+              + Math.pow(a.getCurrent().getY() - a.getTarget().getY(), 2)) 
+              <= board.getSpace(a.getCurrent()).getUnit().getRange())
                 return true;
-             }
-             else
+           else
                 return false;
    }
             
@@ -120,19 +147,19 @@ public class Game
     */
    private boolean moveActionValid(Action a)
    {
-      if(!a.getOperation().equals("move") || board.getSpace(a.getTarget()).getUnit() != null
-            || board.getSpace(a.getCurrent()).getUnit() == null)
-         return false;
-      else
-         if(board.getSpace(a.getTarget()).walkable() &&
-            Math.sqrt(Math.pow(a.getCurrent().getX() - a.getTarget().getX(), 2) 
-            + Math.pow(a.getCurrent().getY() - a.getTarget().getY(), 2)) 
-            <= board.getSpace(a.getCurrent()).getUnit().getMoveSpeed())
-         {
-            return true;
-         }
-         else
-            return false;
+       //checks if action is move, and if users exists and target area is empty
+       if(!a.getOperation().equals("move") || board.getSpace(a.getTarget()).getUnit() != null
+          || board.getSpace(a.getCurrent()).getUnit() == null)
+           return false;
+       else
+           //checks if target area is within range
+           if(board.getSpace(a.getTarget()).walkable() &&
+              Math.sqrt(Math.pow(a.getCurrent().getX() - a.getTarget().getX(), 2) 
+              + Math.pow(a.getCurrent().getY() - a.getTarget().getY(), 2)) 
+              <= board.getSpace(a.getCurrent()).getUnit().getMoveSpeed())
+               return true;
+           else
+               return false;
    }
    
    /**
@@ -150,24 +177,23 @@ public class Game
     */
    private boolean attackActionValid(Action a)
    {
-      if(!a.getOperation().equals("attack") || board.getSpace(a.getTarget()).getUnit() == null
-            || board.getSpace(a.getCurrent()).getUnit() == null)
-          {System.out.println("attack invalid due to null or name"); return false;}
-      else
-         if(Math.sqrt(Math.pow(a.getCurrent().getX() - a.getTarget().getX(), 2) 
-         + Math.pow(a.getCurrent().getY() - a.getTarget().getY(), 2)) 
-         <= board.getSpace(a.getCurrent()).getUnit().getRange())
-         {
-               System.out.println("attack valid");
-               return true;
-         }
-         else
-            {System.out.println("attack invalid due to range "); return false;}
+       //checks if action is attack, and if target and user exists
+       if(!a.getOperation().equals("attack") || board.getSpace(a.getTarget()).getUnit() == null
+          || board.getSpace(a.getCurrent()).getUnit() == null)
+            return false;
+       else
+           //checks if target is within range of user
+           if(Math.sqrt(Math.pow(a.getCurrent().getX() - a.getTarget().getX(), 2) 
+              + Math.pow(a.getCurrent().getY() - a.getTarget().getY(), 2)) 
+              <= board.getSpace(a.getCurrent()).getUnit().getRange())
+                return true;
+           else
+                return false;
    }
                                                                          
    /**
     * isOver returns true if either player has 0 units left
-    * @return boolean true if over
+    * @return boolean if over
     */
    private boolean isOver()
    {
