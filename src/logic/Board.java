@@ -2,6 +2,7 @@ package logic;
 import tiles.*;
 import units.*;
 import java.util.ArrayList;
+import chn.util.FileInput;
 /**
  * Board Class
  * the Board class has an array of spaces that hold the board for the game
@@ -46,9 +47,6 @@ public class Board
         }
               
     }
-  }
-    
-    
   }
   
   /**
