@@ -14,19 +14,22 @@ public abstract class Unit
     protected int health;
     protected int moveSpeed;
     protected Position current;
+    protected int abilityCharges;
+    
     /**
      * Constructor for unit
      * @param atk attack of the unit
      * @param hp max health of the unit
      * @param move range of movement of the unit
      */
-    public Unit(int atk, int def, int hp, int move)
+    public Unit(int atk, int def, int hp, int move, int ch)
     {
         attack = atk;
         defence = def;
         maxHealth = hp;
         health = hp;
         moveSpeed = move;
+        abilityCharge = ch;
     }
     
     /*
