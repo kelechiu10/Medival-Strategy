@@ -12,6 +12,10 @@ public class Board
   private Space[][] spaces;
   private final int SIZE;//15 for now
   
+  /**
+   * The constructor for class Board creates a board of the edges the size of the passed integer
+   * @param integer size
+   */
   public Board(int size)
   {
     SIZE = size;
@@ -19,7 +23,11 @@ public class Board
     fillBoard();
   }
   
-  public void fillBoard()
+  /**
+   * fillBoard fills the board with spaces from the map.txt file
+   *
+   */
+  private void fillBoard()
   {
     FileInput inFile = new FileInput("map.txt");
     for(Space[] spc: spaces)
@@ -42,6 +50,11 @@ public class Board
     
   }
   
+  /**
+   * placeUnits places the units from the player arrays in a 2 column by number of units / 2 rows in the top
+   * left and lower right of the board
+   * @param Player array of players to place units (precondition: Player array is of length 2)
+   */
   public void placeUnits(Player[] players)
   {
     ArrayList<Unit> unit0 = players[0].getUnits();
@@ -68,17 +81,31 @@ public class Board
     }
   }
   
+  /**
+   * getSpace returns the space at the position of the passed Position object
+   * @param Position pos (precondition: x,y valid index on the board array)
+   * @return Space object on the Board array
+   */
   public Space getSpace(Position pos)
   {
     return spaces[pos.getX()][pos.getY()];
   }
   
+  /**
+   * dealDamage deals the passed integer damage to the space at the passed position
+   * @param Position pos (precondition: x,y valid index on the board array)
+   * @param integer attack amount
+   */
   public void dealDamage(Position pos, int attack)
   {
     spaces[pos.getX()][pos.getY()].takeDamage(attack);
   }
 
-public void printBoard()
+  /**
+   * printBoard prints the board to the console
+   *
+   */
+  public void printBoard()
   {
       for (int index = 0; index < SIZE; index++)
       {
