@@ -1,28 +1,49 @@
 package gui;
 
+import java.util.ArrayList;
+
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.GridPane;
-import logic.Position;
+import javafx.scene.paint.Color;
 import logic.Game;
+import logic.Position;
+import units.Unit;
 
 public class GameController {
 	@FXML public Label turnLabel;
 	@FXML public GridPane guiBoard;
 	@FXML public GridPane unitPane;
+	@FXML public GridPane menuPane;
 	@FXML public Button endButton;
 	@FXML public Button loadButton;
 	
-	//private Game game = new Game();
-	private Position startPos = new Position(-1,-1);
-	private Position endPos = new Position(-1,-1);
-	private ImageView oldView = null;
-	
+	private Game game;
+	private Position startPos;
+	private Position endPos;
+	private ImageView oldView;
+	private final int LEN = 50;
+	private InnerShadow highlight;
+	private ArrayList<Node> selection;
+	public GameController()
+	{
+		game = new Game();
+		startPos = new Position(-1,-1);
+		endPos = new Position(-1,-1);
+		oldView = null;
+		highlight = new InnerShadow();
+		highlight.setColor(Color.DARKCYAN);
+		highlight.setRadius(20);
+	}
 	public void endTurn()
 	{
 		if (turnLabel.getText().equals("P1 Turn"))
@@ -33,6 +54,8 @@ public class GameController {
 	
 	public void init()
 	{
+		loadButton.setVisible(false);
+		endButton.setDisable(false);
 		int num = 0;
 		Image ground1 = new Image("ground1.png"); 
 		Image ground2 = new Image("ground2.png"); 
@@ -55,19 +78,65 @@ public class GameController {
 				//cell.setOnMouseClicked(this::location);
 			}
 		}
+		num = 0;
+		//ArrayList<Unit> units0 = game.getBoard().get
 		for( Node node : unitPane.getChildren())
 		{
 			if(node instanceof ImageView)
 			{
 				ImageView unit = (ImageView) node;
-				if(num < 32 || num > 240)
+				
+				if(num < 10 || num > 246)
 				{
-					unit.setImage(new Image("KnightBLue.png"));
+					unit.setImage(new Image("KnightBlue.png"));
+				}
+				else
+				{
+					unit.setImage(null);
 				}
 				unit.setOnMouseClicked(this::location);
 				num++;
 			}
 		}
+		num = 0;
+		for(int col = 0; col < 16; col++)
+		{
+			for(int row = 0; row < 16; row++)
+			{
+				ContextMenu cMenu;
+				MenuButton mButton = new MenuButton();
+				mButton.setPrefHeight(LEN);
+				mButton.setPrefWidth(LEN);
+				mButton.setOpacity(0);	
+				ButtonItem item = new ButtonItem(mButton, "move");
+				item.setOnAction(this::location);
+				cMenu = new ContextMenu(item);
+				
+				mButton.setContextMenu(cMenu);
+				mButton.getItems().addAll(item);
+				menuPane.add(mButton, col, row);
+				cMenu.setOnShowing(e -> e.consume());
+				mButton.setOnContextMenuRequested(e ->
+				{
+					e.consume();
+					mButton.hide();
+					System.out.print("something");
+					//ContextMenu menu = (ContextMenu)e.getSource();
+					//showMenu((ButtonItem)(menu.getItems().get(0)));
+				});
+				mButton.setOnMousePressed(e ->
+				{
+					e.consume();
+					showMenu((ButtonItem)mButton.getItems().get(0));
+				});
+				mButton.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, e ->
+				{
+					e.consume();
+					System.out.println("handled");
+				});
+			}
+		}
+		//menuPane.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> e.consume());
 	} 
 	
 	/**
@@ -77,21 +146,23 @@ public class GameController {
 	public void location(Event e)
 	{
 		
-		ImageView cell = (ImageView) e.getSource();
+		ButtonItem item = (ButtonItem) e.getSource();
+		MenuButton cell = item.getMenuButton();
 		//GridPane pane = (GridPane) cell.getParent();
 		int row = GridPane.getRowIndex(cell);
 		int col = GridPane.getColumnIndex(cell);
-		if(startPos.getX() < 0 && oldView == null && cell.getImage() != null)
-		{
+		Node node = getNode(guiBoard,row,col);
+		node.setEffect(highlight);
+		//if(startPos.getX() < 0 && oldView == null && cell.getImage() != null)
 			startPos.setPos(row, col);
-			oldView = cell;
+			oldView = (ImageView)getNode(unitPane,row,col);/*
 		}
 		else
 			if(oldView != null && cell.getImage() == null)
 			{
 				endPos.setPos(row, col);
 				moveUnit(cell);					
-			}
+			} */
 		System.out.println(row + " " + col);
 	}
 
@@ -103,7 +174,57 @@ public class GameController {
 	{
 		cell.setImage(oldView.getImage());
 		oldView.setImage(null);
+		Node bg = getNode(guiBoard,startPos.getX(),startPos.getY());
+		bg.setEffect(null);
 		oldView = null;
 		startPos.setPos(-1, -1);
+		resetPos();		
+		//for(Node node: selection)
+		//{
+		//	node.setEffect(null);
+		//}
+		
+	}
+	
+	private void showMenu(ButtonItem item)
+	{
+		MenuButton button = item.getMenuButton();
+		Position pos = new Position(GridPane.getRowIndex(button), GridPane.getColumnIndex(button));
+		//Position pos = new Position(row, col);
+		ImageView view = (ImageView)getNode(unitPane,pos.getX(),pos.getY());
+		if(view.getImage() != null)
+		{			
+			System.out.println("shown");
+			//button.getItems().addAll(arg0)
+			//MenuButton button = (MenuButton)(getNode(menuPane,row,col));
+			button.show();
+		}
+		else
+		{
+			if(startPos.getX() != -1)
+			{
+				moveUnit(view);
+			}
+		}
+	}
+	@FXML
+	public void resetPos()
+	{
+		startPos.setPos(-1,-1);
+		System.out.println("reset");
+	}
+	
+	private Node getNode(GridPane pane, int row, int col)
+	{
+		Node result = null;
+		for(Node cell: pane.getChildren())
+		{
+			if(GridPane.getRowIndex(cell) == row && GridPane.getColumnIndex(cell) == col)
+			{
+				result = cell;
+				break;
+			}
+		}
+		return result;
 	}
 }

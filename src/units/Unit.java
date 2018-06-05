@@ -34,7 +34,7 @@ public abstract class Unit
     
     /*
     public void addMove(int m){moveSpeed += m;}
-    public abstract void addRange(int r);
+    //public abstract void addRange(int r);
     public void addAttack(int a){attack += a;}
     */
     
