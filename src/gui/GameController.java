@@ -4,6 +4,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.image.Image;
@@ -75,6 +76,8 @@ public class GameController {
 				{
 					unit.setImage(new Image("KnightBlue.png"));
 				}
+				else
+					unit.setImage(null);
 				unit.setOnMouseClicked(this::location);
 				num++;
 			}
@@ -84,22 +87,40 @@ public class GameController {
 		{
 			for(int row = 0; row < 16; row++)
 			{
-				
+				ContextMenu cMenu;
 				MenuButton mButton = new MenuButton();
 				mButton.setPrefHeight(LEN);
 				mButton.setPrefWidth(LEN);
-				mButton.setOpacity(0);
-				mButton.setOnMouseClicked(e ->
-				{				
-					mButton.hide();
-					showMenu(e);
-				});
+				mButton.setOpacity(0);	
 				ButtonItem item = new ButtonItem(mButton, "move");
 				item.setOnAction(this::location);
+				cMenu = new ContextMenu(item);
+				
+				mButton.setContextMenu(cMenu);
 				mButton.getItems().addAll(item);
 				menuPane.add(mButton, col, row);
+				cMenu.setOnShowing(e -> e.consume());
+				mButton.setOnContextMenuRequested(e ->
+				{
+					e.consume();
+					mButton.hide();
+					System.out.print("something");
+					//ContextMenu menu = (ContextMenu)e.getSource();
+					//showMenu((ButtonItem)(menu.getItems().get(0)));
+				});
+				mButton.setOnMousePressed(e ->
+				{
+					e.consume();
+					showMenu((ButtonItem)mButton.getItems().get(0));
+				});
+				mButton.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, e ->
+				{
+					e.consume();
+					System.out.println("handled");
+				});
 			}
 		}
+		//menuPane.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> e.consume());
 	} 
 	
 	/**
@@ -120,7 +141,7 @@ public class GameController {
 			startPos.setPos(row, col);
 			oldView = cell;
 		}
-		else
+		elsep,
 			if(oldView != null && cell.getImage() == null)
 			{
 				endPos.setPos(row, col);
@@ -141,14 +162,16 @@ public class GameController {
 		startPos.setPos(-1, -1);
 	}
 	
-	private void showMenu(Event e)
+	private void showMenu(ButtonItem item)
 	{
-		MenuButton button = (MenuButton)e.getSource();
+		MenuButton button = item.getMenuButton();
 		Position pos = new Position(GridPane.getRowIndex(button), GridPane.getColumnIndex(button));
+		//Position pos = new Position(row, col);
 		ImageView view = (ImageView)getNode(unitPane,pos.getX(),pos.getY());
 		if(view.getImage() != null)
 		{			
 			System.out.println("shown");
+			//MenuButton button = (MenuButton)(getNode(menuPane,row,col));
 			button.show();
 		}
 	}
