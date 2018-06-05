@@ -92,7 +92,40 @@ public class Game
        turnNumber++;
        return !isOver();
    }
-                                         
+            
+   /**
+    * Returns list of all legal action targets of unit at a position
+    * @param position position of unit to test action 
+    * @return list of legal posititons to be acted by unit at a position, null if no unit at position
+    */
+   public ArrayList<Position> getValidAction(Position p, String act)
+   {
+       //returns null if no unit at position
+       if (board.getSpace(p).getUnit() == null)
+       {
+           return null;
+       }
+       
+       //checks every space in board
+       ArrayList<Position> list = new ArrayList<Position>();
+       for (int row = 0; row < board.getSize(); row++)
+       {
+           for (int column = 0; column < board.getSize(); column++)
+           {
+               if (act.equals("attack") && attackActionValid(new Action(new Position(row,column),p,act)))
+                   list.add(new Position(row,column));
+               else
+                   if (act.equals("move") && moveActionValid(new Action(new Position(row,column),p,act)))
+                       list.add(new Position(row,column));
+                   else
+                       if (act.equals("heal") && healActionValid(new Action(new Position(row,column),p,act)))
+                           list.add(new Position(row,column));
+           }
+       }
+       
+       return list;
+   }
+   
    /**
     * healActionValid checks if the Action passed is a valid heal action
     * this only checks if the Action passed is of operation "heal" and is within 4 range
@@ -109,6 +142,15 @@ public class Game
     */
    private boolean healActionValid(Action a)
    {
+       //returns false if unit is not a priest
+       try
+       {
+           Priest p = (Priest)(board.getSpace(a.getCurrent()).getUnit());
+       }
+       catch (ClassCastException e)
+       {
+           return false;
+       }
        //checks if the action is a heal, and if targets and users exists
        if(!a.getOperation().equals("heal") || board.getSpace(a.getTarget()).getUnit() == null
           || board.getSpace(a.getCurrent()).getUnit() == null)
