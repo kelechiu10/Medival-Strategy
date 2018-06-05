@@ -21,8 +21,8 @@ public class Game
    {
        board = new Board(16);
        players = new Player[2];
-       players[0] = new Player();
-       players[1] = new Player();
+       players[0] = new Player("red");
+       players[1] = new Player("blue");
        turnNumber = 0;
        board.placeUnits(players);
    }
@@ -33,6 +33,19 @@ public class Game
    public Board getBoard()
    {
        return board;
+   }
+   
+   /**
+    * getUnitList returns the unit list from both players combined
+    * @return ArrayList<Unit> unit list
+    */
+   public ArrayList<Unit> getUnitList()
+   {
+      ArrayList<Unit> temp = players[0].getUnits();
+      ArrayList<Unit> temp2 = players[1].getUnits();
+      for(Unit u : temp2)
+         temp.add(u);
+      return temp;
    }
    
    /**
