@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.ArrayList;
+
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -7,10 +9,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import logic.Game;
 import logic.Position;
 
@@ -27,12 +31,17 @@ public class GameController {
 	private Position endPos;
 	private ImageView oldView;
 	private final int LEN = 50;
+	private InnerShadow highlight;
+	private ArrayList<Node> selection;
 	public GameController()
 	{
 		game = new Game();
 		startPos = new Position(-1,-1);
 		endPos = new Position(-1,-1);
 		oldView = null;
+		highlight = new InnerShadow();
+		highlight.setColor(Color.DARKCYAN);
+		highlight.setRadius(20);
 	}
 	public void endTurn()
 	{
@@ -45,6 +54,7 @@ public class GameController {
 	public void init()
 	{
 		loadButton.setVisible(false);
+		endButton.setDisable(false);
 		int num = 0;
 		Image ground1 = new Image("ground1.png"); 
 		Image ground2 = new Image("ground2.png"); 
@@ -67,17 +77,20 @@ public class GameController {
 				//cell.setOnMouseClicked(this::location);
 			}
 		}
+		num = 0;
 		for( Node node : unitPane.getChildren())
 		{
 			if(node instanceof ImageView)
 			{
 				ImageView unit = (ImageView) node;
-				if(num < 32 || num > 240)
+				if(num < 10 || num > 246)
 				{
 					unit.setImage(new Image("KnightBlue.png"));
 				}
 				else
+				{
 					unit.setImage(null);
+				}
 				unit.setOnMouseClicked(this::location);
 				num++;
 			}
@@ -135,13 +148,13 @@ public class GameController {
 		//GridPane pane = (GridPane) cell.getParent();
 		int row = GridPane.getRowIndex(cell);
 		int col = GridPane.getColumnIndex(cell);
-		/*
-		if(startPos.getX() < 0 && oldView == null && cell.getImage() != null)
-		{
+		Node node = getNode(guiBoard,row,col);
+		node.setEffect(highlight);
+		//if(startPos.getX() < 0 && oldView == null && cell.getImage() != null)
 			startPos.setPos(row, col);
-			oldView = cell;
+			oldView = (ImageView)getNode(unitPane,row,col);/*
 		}
-		elsep,
+		else
 			if(oldView != null && cell.getImage() == null)
 			{
 				endPos.setPos(row, col);
@@ -158,8 +171,16 @@ public class GameController {
 	{
 		cell.setImage(oldView.getImage());
 		oldView.setImage(null);
+		Node bg = getNode(guiBoard,startPos.getX(),startPos.getY());
+		bg.setEffect(null);
 		oldView = null;
 		startPos.setPos(-1, -1);
+		resetPos();		
+		//for(Node node: selection)
+		//{
+		//	node.setEffect(null);
+		//}
+		
 	}
 	
 	private void showMenu(ButtonItem item)
@@ -171,8 +192,16 @@ public class GameController {
 		if(view.getImage() != null)
 		{			
 			System.out.println("shown");
+			//button.getItems().addAll(arg0)
 			//MenuButton button = (MenuButton)(getNode(menuPane,row,col));
 			button.show();
+		}
+		else
+		{
+			if(startPos.getX() != -1)
+			{
+				moveUnit(view);
+			}
 		}
 	}
 	@FXML

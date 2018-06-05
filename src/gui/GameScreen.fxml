@@ -11,7 +11,7 @@
 
 <Pane prefHeight="870.0" prefWidth="990.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GameController">
    <children>
-      <Button fx:id="endButton" layoutX="880.0" layoutY="16.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="31.0" prefWidth="86.0" text="End Turn" />
+      <Button fx:id="endButton" disable="true" layoutX="880.0" layoutY="16.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="31.0" prefWidth="86.0" text="End Turn" />
       <Label fx:id="turnLabel" layoutX="7.0" layoutY="10.0" prefHeight="21.0" prefWidth="57.0" text="P1 Turn" />
       <Group layoutX="65.5" layoutY="15.5">
          <children>
