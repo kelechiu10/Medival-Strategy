@@ -17,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import logic.Game;
 import logic.Position;
+import units.Unit;
 
 public class GameController {
 	@FXML public Label turnLabel;
@@ -78,11 +79,13 @@ public class GameController {
 			}
 		}
 		num = 0;
+		//ArrayList<Unit> units0 = game.getBoard().get
 		for( Node node : unitPane.getChildren())
 		{
 			if(node instanceof ImageView)
 			{
 				ImageView unit = (ImageView) node;
+				
 				if(num < 10 || num > 246)
 				{
 					unit.setImage(new Image("KnightBlue.png"));
