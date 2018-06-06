@@ -90,6 +90,10 @@ public abstract class Unit
         return name + team + ".png";
     }
     
+    public String getTeam()
+    {
+    	return team;
+    }
     /**
      * Gets a unit's ability
      * @param target target of the ability

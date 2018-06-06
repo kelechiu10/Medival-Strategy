@@ -207,7 +207,8 @@ public class GameController {
 		Position pos = new Position(GridPane.getRowIndex(button), GridPane.getColumnIndex(button));
 		//Position pos = new Position(row, col);
 		ImageView view = (ImageView)getNode(unitPane,pos.getX(),pos.getY());
-		
+		Unit unit = board.getSpace(pos).getUnit();
+		String color = unit.getTeam();
 		if(view.getImage() != null)
 		{			
 			System.out.println("shown");
@@ -252,7 +253,7 @@ public class GameController {
 			{
 				ImageView cell = (ImageView) getNode(guiBoard, row, col);
 				ImageView unitCell = (ImageView) getNode(unitPane, row, col);
-				Space space = board.getSpace(new Position(row, col));
+				Space space = board.getSpace(new Position(col, row));
 				cell.setImage(new Image(space.getGraphic()));
 				Unit unit = space.getUnit();
 				if(unit != null)
