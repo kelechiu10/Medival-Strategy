@@ -20,7 +20,7 @@ public class Mage extends Unit
      */
     public Mage(String t)
     {
-        super(12,15,40,4,t,"Mage");
+        super(12,15,40,2,t,"Wizard");
     }
     
     /**

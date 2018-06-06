@@ -12,7 +12,7 @@ public abstract class Unit
     protected int defence;
     protected int maxHealth;
     protected int health;
-    protected int moveSpeed;
+    protected double moveSpeed;
     protected Position current;
     protected String team;
     protected String name;
@@ -26,7 +26,7 @@ public abstract class Unit
      * @param t team of the unit ("Red"/"Blue")
      * @param n name of the unit
      */
-    public Unit(int atk, int def, int hp, int move, String t, String n)
+    public Unit(int atk, int def, int hp, double move, String t, String n)
     {
         attack = atk;
         defence = def;
@@ -55,7 +55,7 @@ public abstract class Unit
      * Returns the unit's move speed
      * @return the unit's move speed
      */
-    public int getMoveSpeed()
+    public double getMoveSpeed()
     {
         return moveSpeed;
     }

@@ -79,7 +79,7 @@ public class Game
                //switch the two in the board and then change it in the unit itself
                (board.getSpace(act.getTarget())).setUnit((board.getSpace(act.getCurrent())).getUnit());
                (board.getSpace(act.getCurrent())).setUnit(null);
-               (board.getSpace(act.getCurrent())).getUnit().move(act.getTarget());
+               (board.getSpace(act.getTarget())).getUnit().move(act.getTarget());
            }
            else
                //checks if action is a valid heal

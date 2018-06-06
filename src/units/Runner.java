@@ -5,7 +5,7 @@ import logic.*;
  * Attack: 15
  * Defence: 10
  * Health: 45
- * Movement: 8
+ * Movement: 4
  * Abilities:
  * -(no abilities)
  *
@@ -20,7 +20,7 @@ public class Runner extends Unit
      */
     public Runner(String t)
     {
-        super(15,10,45,8,t,"Runner");
+        super(15,10,45,4,t,"Runner");
     }
     
     /**

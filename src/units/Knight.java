@@ -5,7 +5,7 @@ import logic.*;
  * Attack: 20
  * Defence: 20
  * Health: 65
- * Movement: 5
+ * Movement: 3
  * Abilities:
  * -(no abilities)
  *
@@ -20,7 +20,7 @@ public class Knight extends Unit
      */
     public Knight(String t)
     {
-        super(20,20,65,5,t,"Knight");
+        super(20,20,65,2.5,t,"Knight");
     }
     
     /**

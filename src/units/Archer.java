@@ -20,7 +20,7 @@ public class Archer extends Unit
      */
     public Archer(String t)
     {
-        super(10,10,45,5,t,"Archer");
+        super(10,10,45,2.5,t,"Archer");
     }
     
     /**

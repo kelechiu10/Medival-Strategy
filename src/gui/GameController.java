@@ -15,9 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import logic.Board;
-import logic.Game;
-import logic.Position;
+import logic.*;
 import units.Unit;
 import tiles.Space;
 
@@ -30,12 +28,14 @@ public class GameController {
 	@FXML public Button loadButton;
 	
 	private Game game;
+	private Board board;
 	private Position startPos;
 	private Position endPos;
 	private ImageView oldView;
 	private final int LEN = 50;
 	private InnerShadow highlight;
 	private ArrayList<Node> selection;
+	private int turn;
 	public GameController()
 	{
 		game = new Game();
@@ -45,38 +45,24 @@ public class GameController {
 		highlight = new InnerShadow();
 		highlight.setColor(Color.DARKCYAN);
 		highlight.setRadius(20);
+		turn = 0;
 	}
 	public void endTurn()
 	{
-		if (turnLabel.getText().equals("P1 Turn"))
-			turnLabel.setText("P2 Turn");
-		else
-			turnLabel.setText("P1 Turn");
+		turn++;
+		turnLabel.setText("P" + (turn % 2 + 1) + " Turn");
+		
 	}
 	
 	public void init()
 	{
-		Board board = game.getBoard();
+		board = game.getBoard();
 		loadButton.setVisible(false);
 		endButton.setDisable(false);
 		int num = 0;
 		
-		for (int row = 0; row < board.getSize(); row++)
-		{
-			for(int col = 0; col < board.getSize(); col++)
-			{
-				ImageView cell = (ImageView) getNode(guiBoard, row, col);
-				ImageView unitCell = (ImageView) getNode(unitPane, row, col);
-				Space space = board.getSpace(new Position(row, col));
-				cell.setImage(new Image(space.getGraphic()));
-				Unit unit = space.getUnit();
-				if(unit != null)
-				{
-					unitCell.setImage(new Image(unit.getGraphic()));
-				}
-				
-			}
-		}
+		loadBoard(board);
+		
 		
 		/*
 		for( Node node : guiBoard.getChildren())
@@ -188,7 +174,7 @@ public class GameController {
 			if(oldView != null && cell.getImage() == null)
 			{
 				endPos.setPos(row, col);
-				moveUnit(cell);					
+				doAction(cell);					
 			} */
 		System.out.println(row + " " + col);
 	}
@@ -197,10 +183,12 @@ public class GameController {
 	 * moves the unit across gridPane
 	 * @param cell the image view where the image is to be move to
 	 */
-	private void moveUnit(ImageView cell)
+	private void doAction(Position pos)
 	{
-		cell.setImage(oldView.getImage());
-		oldView.setImage(null);
+		Action act = new Action(pos, startPos, "move");
+		game.runGame(1, act);
+		//cell.setImage(oldView.getImage());
+		//oldView.setImage(null);
 		Node bg = getNode(guiBoard,startPos.getX(),startPos.getY());
 		bg.setEffect(null);
 		oldView = null;
@@ -210,7 +198,7 @@ public class GameController {
 		//{
 		//	node.setEffect(null);
 		//}
-		
+		loadBoard(board);
 	}
 	
 	private void showMenu(ButtonItem item)
@@ -219,6 +207,7 @@ public class GameController {
 		Position pos = new Position(GridPane.getRowIndex(button), GridPane.getColumnIndex(button));
 		//Position pos = new Position(row, col);
 		ImageView view = (ImageView)getNode(unitPane,pos.getX(),pos.getY());
+		
 		if(view.getImage() != null)
 		{			
 			System.out.println("shown");
@@ -230,7 +219,7 @@ public class GameController {
 		{
 			if(startPos.getX() != -1)
 			{
-				moveUnit(view);
+				doAction(pos);
 			}
 		}
 	}
@@ -253,5 +242,26 @@ public class GameController {
 			}
 		}
 		return result;
+	}
+	
+	private void loadBoard(Board board)
+	{
+		for (int row = 0; row < board.getSize(); row++)
+		{
+			for(int col = 0; col < board.getSize(); col++)
+			{
+				ImageView cell = (ImageView) getNode(guiBoard, row, col);
+				ImageView unitCell = (ImageView) getNode(unitPane, row, col);
+				Space space = board.getSpace(new Position(row, col));
+				cell.setImage(new Image(space.getGraphic()));
+				Unit unit = space.getUnit();
+				if(unit != null)
+				
+					unitCell.setImage(new Image(unit.getGraphic()));
+				else
+					unitCell.setImage(null);
+				
+			}
+		}
 	}
 }
