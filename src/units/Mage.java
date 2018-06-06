@@ -16,10 +16,11 @@ public class Mage extends Unit
 {
     /**
      * Constructor for Mage
+     * @param t team of the unit
      */
-    public Mage()
+    public Mage(String t)
     {
-        super(12,15,40,4);
+        super(12,15,40,4,t,"Mage");
     }
     
     /**
