@@ -17,10 +17,11 @@ public class Soldier extends Unit
 {
     /**
      * Constructor for Soldier
+     * @param t team of the unit
      */
-    public Soldier()
+    public Soldier(String t)
     {
-        super(12,12,45,6);
+        super(12,12,45,6,t,"Soldier");
     }
     
     /**
