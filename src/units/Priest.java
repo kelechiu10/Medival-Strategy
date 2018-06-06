@@ -17,9 +17,9 @@ public class Priest extends Unit
     /**
      * Constructor for Priest
      */
-    public Priest()
+    public Priest(String t)
     {
-        super(10,14,40,5);
+        super(10,14,40,5,t,"Priest");
     }
     
     /**
