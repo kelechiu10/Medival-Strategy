@@ -11,7 +11,7 @@ package tiles;
     
     public GrassFort()
     {
-        super(true, "grass");
+        super(true, "grass", "tower.png");
         fortHealth = 20;
     }
     

@@ -104,7 +104,7 @@ public class Board
   /**
    * printBoard prints the board to the console
    *
-   */
+   *
   public void printBoard()
   {
       for (int index = 0; index < SIZE; index++)
@@ -121,7 +121,7 @@ public class Board
           System.out.println(row);
       }
   }
-  
+  */
   public int getSize()
   {
 	  return SIZE;

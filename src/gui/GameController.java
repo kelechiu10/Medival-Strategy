@@ -15,9 +15,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import logic.Board;
 import logic.Game;
 import logic.Position;
 import units.Unit;
+import tiles.Space;
 
 public class GameController {
 	@FXML public Label turnLabel;
@@ -54,18 +56,43 @@ public class GameController {
 	
 	public void init()
 	{
+		Board board = game.getBoard();
 		loadButton.setVisible(false);
 		endButton.setDisable(false);
 		int num = 0;
-		Image ground1 = new Image("ground1.png"); 
-		Image ground2 = new Image("ground2.png"); 
-		Image ground3 = new Image("ground3.png"); 
 		
+		for (int row = 0; row < board.getSize(); row++)
+		{
+			for(int col = 0; col < board.getSize(); col++)
+			{
+				ImageView cell = (ImageView) getNode(guiBoard, row, col);
+				ImageView unitCell = (ImageView) getNode(unitPane, row, col);
+				Space space = board.getSpace(new Position(row, col));
+				cell.setImage(new Image(space.getGraphic()));
+				Unit unit = space.getUnit();
+				if(unit != null)
+				{
+					unitCell.setImage(new Image(unit.getGraphic()));
+				}
+				
+			}
+		}
 		
+		/*
 		for( Node node : guiBoard.getChildren())
 		{
 			if(node instanceof ImageView)
 			{
+				ImageView cell = (ImageView) node;
+				Space space = board.getSpace(new Position(r,c));
+				cell.setImage(new Image(space.getGraphic()));
+				c++;
+				if (c > 15)
+				{
+					c = 0;
+					r++;
+				}
+				/*
 				ImageView cell = (ImageView) node;
 				num = (int) (Math.random() * 6);
 				if(num < 2)
@@ -75,12 +102,12 @@ public class GameController {
 						cell.setImage(ground2);
 					else
 						cell.setImage(ground3);
-				//cell.setOnMouseClicked(this::location);
+				//cell.setOnMouseClicked(this::location); 
 			}
-		}
+		} */
 		num = 0;
 		//ArrayList<Unit> units0 = game.getBoard().get
-		for( Node node : unitPane.getChildren())
+		/*for( Node node : unitPane.getChildren())
 		{
 			if(node instanceof ImageView)
 			{
@@ -97,7 +124,7 @@ public class GameController {
 				unit.setOnMouseClicked(this::location);
 				num++;
 			}
-		}
+		} */
 		num = 0;
 		for(int col = 0; col < 16; col++)
 		{

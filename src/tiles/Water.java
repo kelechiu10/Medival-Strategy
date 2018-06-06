@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
  {
     public Water()
     {
-        super(false, "water");
+        super(false, "water", "water.png");
     }
     
     public void takeDamage(int dmg)

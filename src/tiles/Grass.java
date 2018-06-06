@@ -9,15 +9,15 @@ package tiles;
  {
      public Grass()
     {
-        super(true, "grass", "ground1");
+        super(true, "grass", "ground1.png");
         int num = (int)(Math.random() * 6);
         if(num == 5)
-            setGraphic("ground3");
+            setGraphic("ground3.png");
         else
             if(num == 4)
-                setGraphic("ground2");
+                setGraphic("ground2.png");
             else
-                setGraphic("ground1");
+                setGraphic("ground1.png");
     }
     
     public void takeDamage(int dmg)
