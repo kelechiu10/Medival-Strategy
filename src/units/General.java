@@ -16,10 +16,11 @@ public class General extends Unit
 {
     /**
      * Constructor for General
+     * @param t team of the unit
      */
-    public General()
+    public General(String t)
     {
-        super(12,18,70,3);
+        super(12,18,70,3,t,"General");
     }
     
     /**
