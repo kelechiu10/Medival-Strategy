@@ -16,10 +16,11 @@ public class Runner extends Unit
 {
     /**
      * Constructor for Runner
+     * @param t team of the unit
      */
-    public Runner()
+    public Runner(String t)
     {
-        super(15,10,45,8);
+        super(15,10,45,8,t,"Runner");
     }
     
     /**
