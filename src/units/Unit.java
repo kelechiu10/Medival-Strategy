@@ -14,29 +14,28 @@ public abstract class Unit
     protected int health;
     protected int moveSpeed;
     protected Position current;
-    protected int abilityCharges;
+    protected String team;
+    protected String name;
     
     /**
      * Constructor for unit
      * @param atk attack of the unit
+     * @param def defence of the unit
      * @param hp max health of the unit
      * @param move range of movement of the unit
+     * @param t team of the unit ("Red"/"Blue")
+     * @param n name of the unit
      */
-    public Unit(int atk, int def, int hp, int move, int ch)
+    public Unit(int atk, int def, int hp, int move, String t, String n)
     {
         attack = atk;
         defence = def;
         maxHealth = hp;
         health = hp;
         moveSpeed = move;
-        abilityCharge = ch;
+        team = t;
+        name = n;
     }
-    
-    /*
-    public void addMove(int m){moveSpeed += m;}
-    //public abstract void addRange(int r);
-    public void addAttack(int a){attack += a;}
-    */
     
     public int getAttackValue()
     {
@@ -80,6 +79,15 @@ public abstract class Unit
     {
         health += heal;
         if (health > maxHealth) health = maxHealth;
+    }
+    
+    /**
+     * Returns the name of the corresponding graphic image of the unit
+     * @return name of the image file of the unit
+     */
+    public String getGraphic()
+    {
+        return name + team + ".png";
     }
     
     /**
