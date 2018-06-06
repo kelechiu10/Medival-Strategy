@@ -16,6 +16,7 @@ public class Priest extends Unit
 {
     /**
      * Constructor for Priest
+     * @param t team of the unit
      */
     public Priest(String t)
     {
