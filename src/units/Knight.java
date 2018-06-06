@@ -16,10 +16,11 @@ public class Knight extends Unit
 {
     /**
      * Constructor for Knight
+     * @param t team of the unit
      */
-    public Knight()
+    public Knight(String t)
     {
-        super(20,20,65,5);
+        super(20,20,65,5,"Knight");
     }
     
     /**
