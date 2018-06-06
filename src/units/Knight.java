@@ -20,7 +20,7 @@ public class Knight extends Unit
      */
     public Knight(String t)
     {
-        super(20,20,65,5,"Knight");
+        super(20,20,65,5,t,"Knight");
     }
     
     /**
