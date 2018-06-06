@@ -1,3 +1,4 @@
+
 package logic;
 import tiles.*;
 import units.*;
@@ -119,5 +120,10 @@ public class Board
           }
           System.out.println(row);
       }
+  }
+  
+  public int getSize()
+  {
+	  return SIZE;
   }
 }

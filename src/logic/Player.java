@@ -19,18 +19,18 @@ import java.util.ArrayList;
      * (standard items: two healing potions, one attack potion)
      * (standard units: one of each, four soldiers)
      */
-    public Player()
+    public Player(String t)
     {
         units = new ArrayList<Unit>(10);
         
         for(int k = 0; k < 4; k++)
-          units.add(new Soldier());
-        units.add(new Priest());
-        units.add(new Mage());
-        units.add(new General());
-        units.add(new Archer());
-        units.add(new Knight());
-        units.add(new Runner());
+          units.add(new Soldier(t));
+        units.add(new Priest(t));
+        units.add(new Mage(t));
+        units.add(new General(t));
+        units.add(new Archer(t));
+        units.add(new Knight(t));
+        units.add(new Runner(t));
         
         /*
         items = new Item[3];
