@@ -16,10 +16,11 @@ public class Archer extends Unit
 {
     /**
      * Constructor for Archer
+     * @param t team of the unit
      */
-    public Archer()
+    public Archer(String t)
     {
-        super(10,10,45,5);
+        super(10,10,45,5,t);
     }
     
     /**
