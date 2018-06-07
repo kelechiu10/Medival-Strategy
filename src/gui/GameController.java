@@ -2,6 +2,7 @@ package gui;
 
 import java.util.ArrayList;
 
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -9,15 +10,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import logic.*;
-import units.Unit;
+import logic.Action;
+import logic.Board;
+import logic.Game;
+import logic.Position;
 import tiles.Space;
+import units.Priest;
+import units.Unit;
 
 public class GameController {
 	@FXML public Label turnLabel;
@@ -31,68 +36,46 @@ public class GameController {
 	private Board board;
 	private Position startPos;
 	private Position endPos;
-	private ImageView oldView;
 	private final int LEN = 50;
-	private InnerShadow highlight;
-	private ArrayList<Node> selection;
+	private InnerShadow highlightG;
+	private InnerShadow highlightR;
+	private ArrayList<Position> selection;
+	private int moves;
 	private int turn;
+	private String op; //operation for action
 	public GameController()
 	{
 		game = new Game();
 		startPos = new Position(-1,-1);
 		endPos = new Position(-1,-1);
-		oldView = null;
-		highlight = new InnerShadow();
-		highlight.setColor(Color.DARKCYAN);
-		highlight.setRadius(20);
+		highlightG = new InnerShadow();
+		highlightG.setColor(Color.DARKCYAN);
+		highlightG.setRadius(LEN/2);
+		highlightR = new InnerShadow();
+		highlightR.setColor(Color.RED);
 		turn = 0;
+		moves = 5;
 	}
 	public void endTurn()
 	{
 		turn++;
-		turnLabel.setText("P" + (turn % 2 + 1) + " Turn");
+		turnLabel.setText("P" + getTurn() + " Turn");
 		
 	}
 	
+	private int getTurn()
+	{
+		return (turn % 2 + 1);
+	}
 	public void init()
 	{
 		board = game.getBoard();
 		loadButton.setVisible(false);
 		endButton.setDisable(false);
-		int num = 0;
 		
 		loadBoard(board);
 		
 		
-		/*
-		for( Node node : guiBoard.getChildren())
-		{
-			if(node instanceof ImageView)
-			{
-				ImageView cell = (ImageView) node;
-				Space space = board.getSpace(new Position(r,c));
-				cell.setImage(new Image(space.getGraphic()));
-				c++;
-				if (c > 15)
-				{
-					c = 0;
-					r++;
-				}
-				/*
-				ImageView cell = (ImageView) node;
-				num = (int) (Math.random() * 6);
-				if(num < 2)
-					cell.setImage(ground1);
-				else
-					if(num < 4)
-						cell.setImage(ground2);
-					else
-						cell.setImage(ground3);
-				//cell.setOnMouseClicked(this::location); 
-			}
-		} */
-		num = 0;
-		//ArrayList<Unit> units0 = game.getBoard().get
 		/*for( Node node : unitPane.getChildren())
 		{
 			if(node instanceof ImageView)
@@ -111,7 +94,6 @@ public class GameController {
 				num++;
 			}
 		} */
-		num = 0;
 		for(int col = 0; col < 16; col++)
 		{
 			for(int row = 0; row < 16; row++)
@@ -122,34 +104,21 @@ public class GameController {
 				mButton.setPrefWidth(LEN);
 				mButton.setOpacity(0);	
 				ButtonItem item = new ButtonItem(mButton, "move");
+				ButtonItem item2= new ButtonItem(mButton, "attack");
 				item.setOnAction(this::location);
-				cMenu = new ContextMenu(item);
-				
+				item2.setOnAction(this::location);
+				cMenu = new ContextMenu(item,item2);	
 				mButton.setContextMenu(cMenu);
-				mButton.getItems().addAll(item);
+				mButton.getItems().addAll(item,item2);
 				menuPane.add(mButton, col, row);
 				cMenu.setOnShowing(e -> e.consume());
-				mButton.setOnContextMenuRequested(e ->
-				{
-					e.consume();
-					mButton.hide();
-					System.out.print("something");
-					//ContextMenu menu = (ContextMenu)e.getSource();
-					//showMenu((ButtonItem)(menu.getItems().get(0)));
-				});
 				mButton.setOnMousePressed(e ->
 				{
 					e.consume();
-					showMenu((ButtonItem)mButton.getItems().get(0));
-				});
-				mButton.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, e ->
-				{
-					e.consume();
-					System.out.println("handled");
+					showMenu(mButton);
 				});
 			}
 		}
-		//menuPane.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> e.consume());
 	} 
 	
 	/**
@@ -161,14 +130,19 @@ public class GameController {
 		
 		ButtonItem item = (ButtonItem) e.getSource();
 		MenuButton cell = item.getMenuButton();
-		//GridPane pane = (GridPane) cell.getParent();
 		int row = GridPane.getRowIndex(cell);
 		int col = GridPane.getColumnIndex(cell);
 		Node node = getNode(guiBoard,row,col);
-		node.setEffect(highlight);
-		//if(startPos.getX() < 0 && oldView == null && cell.getImage() != null)
-			startPos.setPos(row, col);
-			oldView = (ImageView)getNode(unitPane,row,col);/*
+		node.setEffect(highlightG);
+		startPos.setPos(row, col);
+		op = item.getText();
+		selection = game.getValidAction(startPos, item.getText());
+		for(Position pos : selection)
+		{
+			Node view = getNode(guiBoard,pos.getX(),pos.getY());
+			view.setEffect(highlightR);
+		}
+			/*
 		}
 		else
 			if(oldView != null && cell.getImage() == null)
@@ -183,44 +157,58 @@ public class GameController {
 	 * moves the unit across gridPane
 	 * @param cell the image view where the image is to be move to
 	 */
-	private void doAction(Position pos)
+	private void doAction(Position pos, String op)
 	{
-		Action act = new Action(pos, startPos, "move");
-		game.runGame(1, act);
+		Action act = new Action(startPos, pos, op);
+		game.runGame(getTurn(), act);
 		//cell.setImage(oldView.getImage());
 		//oldView.setImage(null);
 		Node bg = getNode(guiBoard,startPos.getX(),startPos.getY());
 		bg.setEffect(null);
-		oldView = null;
-		startPos.setPos(-1, -1);
 		resetPos();		
-		//for(Node node: selection)
-		//{
-		//	node.setEffect(null);
-		//}
 		loadBoard(board);
+		moves--;
+		if(moves == 0)
+			moves = 5;
+		endTurn();
 	}
 	
-	private void showMenu(ButtonItem item)
+	private void showMenu(MenuButton button)
 	{
-		MenuButton button = item.getMenuButton();
+		//MenuButton button = item.getMenuButton();
 		Position pos = new Position(GridPane.getRowIndex(button), GridPane.getColumnIndex(button));
 		//Position pos = new Position(row, col);
-		ImageView view = (ImageView)getNode(unitPane,pos.getX(),pos.getY());
+		//ImageView view = (ImageView)getNode(unitPane,pos.getX(),pos.getY());
 		Unit unit = board.getSpace(pos).getUnit();
-		String color = unit.getTeam();
-		if(view.getImage() != null)
-		{			
-			System.out.println("shown");
-			//button.getItems().addAll(arg0)
-			//MenuButton button = (MenuButton)(getNode(menuPane,row,col));
-			button.show();
+		if(unit != null)
+		{
+			String color = unit.getTeam();
+			if( (color.equalsIgnoreCase("red") && getTurn() == 1) || (color.equalsIgnoreCase("blue") && getTurn() == 2) )
+			{
+				ObservableList<MenuItem> items = button.getItems();
+				System.out.println("shown");
+				if(unit instanceof Priest)
+				{
+					if(items.size() < 3)
+					{
+						ButtonItem heal = new ButtonItem(button, "heal");
+						heal.setOnAction(this::location);
+						items.add(2,heal);
+					}
+				}
+				else
+					if(items.size() > 2)
+					{
+						items.remove(2);
+					}
+				button.show();
+			}
 		}
 		else
 		{
-			if(startPos.getX() != -1)
+			if(startPos.getX() != -1 && selection.contains(pos))
 			{
-				doAction(pos);
+				doAction(pos, op);
 			}
 		}
 	}
@@ -253,7 +241,7 @@ public class GameController {
 			{
 				ImageView cell = (ImageView) getNode(guiBoard, row, col);
 				ImageView unitCell = (ImageView) getNode(unitPane, row, col);
-				Space space = board.getSpace(new Position(col, row));
+				Space space = board.getSpace(new Position(row, col));
 				cell.setImage(new Image(space.getGraphic()));
 				Unit unit = space.getUnit();
 				if(unit != null)
@@ -261,7 +249,6 @@ public class GameController {
 					unitCell.setImage(new Image(unit.getGraphic()));
 				else
 					unitCell.setImage(null);
-				
 			}
 		}
 	}

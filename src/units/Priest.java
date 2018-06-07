@@ -5,7 +5,7 @@ import logic.*;
  * Attack: 10
  * Defence: 14
  * Health: 40
- * Movement: 2
+ * Movement: 2.5
  * Abilities:
  * -#1 Heal: Heals a unit at a distance
  *
