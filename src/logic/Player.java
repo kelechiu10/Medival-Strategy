@@ -91,48 +91,18 @@ import java.util.ArrayList;
     }
     
     /**
-     * isDead() returns true if the player has no more units, otherwise, returns false
+     * isDead() returns true if the player is dead, otherwise, returns false
      * @return boolean if Dead
      * 
      */
     public boolean isDead()
     {
-        if(units.size() == 0)
-          return true;
-        return false;
+        boolean result = true;
+        for(Unit u : units)
+        {
+           if(u instanceof General)
+               result = false;
+        }
+        return result;
     }
-    
-    /*
-     * useItem uses the item at the passed index on the target position
-     * @param integer index on Item array, Position target to use item
-     *
-     
-    public Item useItem(int index)
-    {
-        return items[index];
-    }
-    
-    public Item getItem(int index)
-    {
-        return items[index];
-    }
-    
-    /**
-     * pickUpItem overwrites the item at index on the item array
-     * @param Item picked up item, integer index on Item array
-     
-    public void pickUpItem(Item newItem, int index)
-    {
-        items[index] = newItem;
-    }
-    
-    /**
-     * getItemList returns a String representation of the item array
-     * @return String list of Items
-     
-    public String getItemList()
-    {
-        return "1: " + items[0] + " 2: " + items[1] + " 3: " + items[3];
-    }
-    */
  }
