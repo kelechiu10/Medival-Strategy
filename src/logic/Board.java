@@ -123,6 +123,8 @@ public class Board
   public void dealDamage(Position pos, int attack)
   {
     spaces[pos.getX()][pos.getY()].takeDamage(attack);
+    if(spaces[pos.getX()][pos.getY()] instanceof GrassFort && spaces[pos.getX()][pos.getY()].fortDown())
+       spaces[pos.getX()][pos.gety()].setGraphic("towerDown.png");
   }
 
   /**
