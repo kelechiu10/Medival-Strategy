@@ -41,6 +41,7 @@ public class GameController {
 	private InnerShadow highlightR;
 	private ArrayList<Position> selection;
 	private int moves;
+	private final int maxMoves;
 	private int turn;
 	private String op; //operation for action
 	public GameController()
@@ -54,13 +55,14 @@ public class GameController {
 		highlightR = new InnerShadow();
 		highlightR.setColor(Color.RED);
 		turn = 0;
-		moves = 5;
+		maxMoves = 5;
+		moves = maxMoves;
 	}
 	public void endTurn()
 	{
 		turn++;
 		turnLabel.setText("P" + getTurn() + " Turn");
-		
+		moves = maxMoves;
 	}
 	
 	private int getTurn()
@@ -136,7 +138,7 @@ public class GameController {
 		node.setEffect(highlightG);
 		startPos.setPos(row, col);
 		op = item.getText();
-		selection = game.getValidAction(startPos, item.getText());
+		selection = game.getValidAction(startPos, op);
 		for(Position pos : selection)
 		{
 			Node view = getNode(guiBoard,pos.getX(),pos.getY());
@@ -159,18 +161,24 @@ public class GameController {
 	 */
 	private void doAction(Position pos, String op)
 	{
-		Action act = new Action(startPos, pos, op);
+		Action act = new Action(pos, startPos, op);
 		game.runGame(getTurn(), act);
 		//cell.setImage(oldView.getImage());
 		//oldView.setImage(null);
 		Node bg = getNode(guiBoard,startPos.getX(),startPos.getY());
 		bg.setEffect(null);
+		for(Position position : selection)
+		{
+			Node view = getNode(guiBoard,position.getX(),position.getY());
+			view.setEffect(null);
+		}
 		resetPos();		
 		loadBoard(board);
 		moves--;
 		if(moves == 0)
-			moves = 5;
-		endTurn();
+		{
+			endTurn();
+		}
 	}
 	
 	private void showMenu(MenuButton button)
@@ -245,7 +253,6 @@ public class GameController {
 				cell.setImage(new Image(space.getGraphic()));
 				Unit unit = space.getUnit();
 				if(unit != null)
-				
 					unitCell.setImage(new Image(unit.getGraphic()));
 				else
 					unitCell.setImage(null);

@@ -50,4 +50,17 @@ package logic;
         xPos = x;
         yPos = y;
     }
+    
+    @Override
+    public boolean equals(Object other)
+    {
+    	boolean result = false;
+    	if(other instanceof Position)
+    	{
+    		Position pos = (Position)other;
+    		if(getX() == pos.getX() && getY() == pos.getY())
+    			result = true;
+    	}
+    	return result;
+    }
  }
