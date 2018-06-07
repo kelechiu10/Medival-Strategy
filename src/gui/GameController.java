@@ -238,6 +238,7 @@ public class GameController {
 		{
 			if(unit.getTeam().equals("Red"))
 			{
+				button = new UnitButton(unit);
 				
 			}
 		}

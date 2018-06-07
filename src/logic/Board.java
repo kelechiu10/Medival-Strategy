@@ -8,6 +8,7 @@ import chn.util.FileInput;
  * Board Class
  * the Board class has an array of spaces that hold the board for the game
  * @author Claudia Xue
+ * @editor Aemilia Russ
  * @version 5/16/18
  */
 public class Board
@@ -46,9 +47,14 @@ public class Board
         }
     }
 
-    for(int k = 0; k < 5; k++)
+    for(int k = 0; k < 4; k++)
     {
-	spaces[(int)(Math.random() * 14)][(int)(Math.random() * 14)] = new GrassFort();
+	spaces[(int)(Math.random() * 7)][(int)(Math.random() * 7)] = new GrassFort();
+    }
+	
+    for(int k = 0; k < 4; k++)
+    {
+	spaces[14 - (int)(Math.random() * 7)][14 - (int)(Math.random() * 7)] = new GrassFort();
     }
 	  
     for(int k = 0; k < 5; k++)
@@ -75,6 +81,7 @@ public class Board
         spaces[row][col] = new Grass();
       }
     }
+	  
     for(int row = SIZE - 1; row > SIZE - 6; row--)
     {
       for(int col = SIZE - 1; col > SIZE - 3; col--)
@@ -90,13 +97,14 @@ public class Board
    */
   private void fillBoard()
   {
-    if(mp == 1)
-    	FileInput inFile = new FileInput("map1.txt");
+	  FileInput inFile;
+    if(mapNumber == 1)
+    	inFile = new FileInput("map1.txt");
     else
-	if(mp == 2)
-	    FileInput inFile = new FileInput("map2.txt");
+	if(mapNumber == 2)
+	    inFile = new FileInput("map2.txt");
 	else
-	    FileInput inFile = new FileInput("map3.txt");
+	    inFile = new FileInput("map3.txt");
     for(Space[] spc: spaces)
     {
         for(int k = 0; k < spc.length; k++)
