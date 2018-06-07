@@ -18,9 +18,9 @@ public class Game
     * the constructor for Game creates a standard game with two players, a 15 X 15 board and 10 units per player.
     *
     */
-   public Game()
+   public Game(String s)
    {
-       board = new Board(16);
+       board = new Board(16, s);
        players = new Player[2];
        players[0] = new Player("red");
        players[1] = new Player("blue");
