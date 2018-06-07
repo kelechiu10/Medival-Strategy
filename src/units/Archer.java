@@ -38,7 +38,7 @@ public class Archer extends Unit
      */
     public double getRange()
     {
-        return 8.0;
+        return 6.0;
     }
     
     /**

@@ -38,7 +38,7 @@ public class Priest extends Unit
      */
     public double getRange()
     {
-        return 4.0;
+        return 2.5;
     }
     
     /**

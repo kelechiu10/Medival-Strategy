@@ -38,7 +38,7 @@ public class Mage extends Unit
      */
     public double getRange()
     {
-        return 5.0;
+        return 3.0;
     }
     
     /**
