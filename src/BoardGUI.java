@@ -102,8 +102,12 @@ public class BoardGUI extends Application
                             for(int count = 0; count < canAttack.size(); count++)
                             {
                                 Position attPos = (Position)canAttack.get(count);
-                                Node moveble = getNode(gridPic,attPos.getY(),attPos.getX());
-                                moveble.setEffect(highlightR);
+                                Node attble = getNode(gridPic,attPos.getY(),attPos.getX());
+                                attble.setEffect(highlightR);
+                                MenuButton attButton = (MenuButton)getNode(gridMenu,attPos.getY(),attPos.getX());
+                                MenuItem attack = new MenuItem("attack");
+                                attack.setOnAction(f -> doAction(attPos,uButton.getUnit(),"attack",uButton.getIndex()));
+                                attButton.getItems().add(attack);
                             }
 
                             if(uButton.getUnit() instanceof Priest)
@@ -112,8 +116,12 @@ public class BoardGUI extends Application
                                 for(int count = 0; count < canHeal.size(); count++)
                                 {
                                     Position healPos = (Position)canHeal.get(count);
-                                    Node moveble = getNode(gridPic,healPos.getY(),healPos.getX());
-                                    moveble.setEffect(highlightY);
+                                    Node healble = getNode(gridPic,healPos.getY(),healPos.getX());
+                                    healble.setEffect(highlightY);
+                                    MenuButton healButton = (MenuButton)getNode(gridMenu,healPos.getY(),healPos.getX());
+                                    MenuItem heal = new MenuItem("heal");
+                                    heal.setOnAction(f -> doAction(healPos,uButton.getUnit(),"heal",uButton.getIndex()));
+                                    healButton.getItems().add(heal);
                                 }
                             }
                         }
@@ -194,17 +202,15 @@ public class BoardGUI extends Application
         else
             game.runGame(2, act);
         clear();
-        gridUnit.add(unitImg[index], tar.getX(), tar.getY());
-        //cell.setImage(oldView.getImage());
-        //oldView.setImage(null);
-        //resetPos();		
-        //loadBoard(board);
         moveNum--;
         moves.setText("Moves Left: " + moveNum);
         if(moveNum == 0)
         {
             endTurn();
         }
+        if(op.equals("move"))
+            gridUnit.add(unitImg[index], tar.getX(), tar.getY());
+        
     }
 
     private void clear()
@@ -220,6 +226,10 @@ public class BoardGUI extends Application
                 temp.getItems().clear();
             }
         }
+        if(((GrassFort)board.getSpace(new Position(8,7))).fortDown())
+        {
+            ((ImageView)getNode(gridPic,8,7)).setImage(new Image("BrokenTower.png"));
+        }
     }
 
     public static void main(String[] args) 
@@ -227,11 +237,6 @@ public class BoardGUI extends Application
         boolean end = false;
 
         Application.launch(args);
-        while(end == false)
-        {
-            //end = game.runGame();
-        }
-
     }
 
 }
