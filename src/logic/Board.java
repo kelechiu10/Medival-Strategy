@@ -26,6 +26,30 @@ public class Board
     fillBoard();
   }
   
+	
+  /**
+   * fillBoardRandom randomly fills the board (the initial unit spots are guaranteed grass)
+   * 
+   */
+  private void fillBoardRandom()
+  {
+    for(Space[] spc: spaces)
+    {
+        for(int k = 0; k < spc.length; k++)
+        {
+            int tile = 0;
+            if (tile == 0)
+                spc[k] = new Grass();
+            else
+                if (tile == 1)
+                    spc[k] = new Water();
+                else
+                    spc[k] = new GrassFort();
+        }
+              
+    }
+  }
+	
   /**
    * fillBoard fills the board with spaces from the map.txt file
    *
