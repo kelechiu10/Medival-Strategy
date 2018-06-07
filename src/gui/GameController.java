@@ -45,6 +45,7 @@ public class GameController {
 	private final int maxMoves;
 	private int turn;
 	private String op; //operation for action
+	private boolean running;
 	public GameController()
 	{
 		game = new Game();
@@ -57,6 +58,7 @@ public class GameController {
 		turn = 0;
 		maxMoves = 3;
 		moves = maxMoves;
+		running = true;
 	}
 	public void endTurn()
 	{
@@ -111,7 +113,7 @@ public class GameController {
 	 */
 	public void location(Event e)
 	{
-		
+		resetHighlight();
 		ButtonItem item = (ButtonItem) e.getSource();
 		MenuButton cell = item.getMenuButton();
 		int row = GridPane.getRowIndex(cell);
@@ -136,23 +138,31 @@ public class GameController {
 	private void doAction(Position pos, String op)
 	{
 		Action act = new Action(pos, startPos, op);
-		game.runGame(getTurn(), act);
+		running = game.runGame(getTurn(), act);
 		//cell.setImage(oldView.getImage());
 		//oldView.setImage(null);
-		Node bg = getNode(guiBoard,startPos.getX(),startPos.getY());
+		resetHighlight();
+		/*Node bg = getNode(guiBoard,startPos.getX(),startPos.getY());
 		bg.setEffect(null);
 		for(Position position : selection)
 		{
 			Node view = getNode(guiBoard,position.getX(),position.getY());
 			view.setEffect(null);
-		}
+		} */
 		resetPos();		
 		loadBoard(board);
-		moves--;
-		if(moves == 0)
-			endTurn();
+		if(running)
+		{
+			moves--;
+			if(moves == 0)
+				endTurn();
+			else
+				moveLeft.setText(""+moves);
+		}
 		else
-			moveLeft.setText(""+moves);
+		{
+			System.out.println("Game over");
+		}
 	}
 	
 	private void showMenu(MenuButton button)
@@ -215,9 +225,9 @@ public class GameController {
 	
 	private void loadBoard(Board board)
 	{
-		for (int row = 0; row < board.getSize(); row++)
+		for (int col = 0; col < board.getSize(); col++)
 		{
-			for(int col = 0; col < board.getSize(); col++)
+			for(int row = 0; row < board.getSize(); row++)
 			{
 				ImageView cell = (ImageView) getNode(guiBoard, row, col);
 				ImageView unitCell = (ImageView) getNode(unitPane, row, col);
@@ -228,6 +238,23 @@ public class GameController {
 					unitCell.setImage(new Image(unit.getGraphic()));
 				else
 					unitCell.setImage(null);
+			}
+		}
+	}
+	
+	private void resetHighlight()
+	{
+		if(!startPos.equals(new Position(-1,-1)))
+		{
+			Node bg = getNode(guiBoard,startPos.getX(),startPos.getY());
+			bg.setEffect(null);
+		}
+		if(selection != null)
+		{
+			for(Position position : selection)
+			{
+				Node view = getNode(guiBoard,position.getX(),position.getY());
+				view.setEffect(null);
 			}
 		}
 	}
