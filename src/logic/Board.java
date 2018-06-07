@@ -14,16 +14,17 @@ public class Board
 {
   private Space[][] spaces;
   private final int SIZE;//15 for now
-  
+  private int mapNumber;
   /**
    * The constructor for class Board creates a board of the edges the size of the passed integer
    * @param integer size
    */
-  public Board(int size, String s)
+  public Board(int size, int mp)
   {
+    mapNumber = mp;
     SIZE = size;
     spaces = new Space[SIZE][SIZE];
-    if(s.equals("regular"))
+    if(mp < 4)
 	fillBoard();
     else
 	fillBoardRandom();
@@ -89,7 +90,13 @@ public class Board
    */
   private void fillBoard()
   {
-    FileInput inFile = new FileInput("map.txt");
+    if(mp == 1)
+    	FileInput inFile = new FileInput("map1.txt");
+    else
+	if(mp == 2)
+	    FileInput inFile = new FileInput("map2.txt");
+	else
+	    FileInput inFile = new FileInput("map3.txt");
     for(Space[] spc: spaces)
     {
         for(int k = 0; k < spc.length; k++)
