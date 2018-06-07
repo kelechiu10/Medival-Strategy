@@ -33,20 +33,42 @@ public class Board
    */
   private void fillBoardRandom()
   {
+    //fill entire board with grass
     for(Space[] spc: spaces)
     {
         for(int k = 0; k < spc.length; k++)
         {
-            int tile = 0;
-            if (tile == 0)
-                spc[k] = new Grass();
-            else
-                if (tile == 1)
-                    spc[k] = new Water();
-                else
-                    spc[k] = new GrassFort();
+            spc[k] = new Grass();
         }
-              
+    }
+
+    for(int k = 0; k < 5; k++)
+    {
+	spaces[(int)(Math.Random() * 14)][(int)(Math.Random() * 14)] = new GrassFort();
+    }
+	  
+    for(int k = 0; k < 5; k++)
+    {
+	int r = (int)(Math.Random() * 14);
+	int c = (int)(Math.Random() * 14);  
+	if(!spaces[r][c] instanceof GrassFort)
+	    spaces[r][c] = new Water();
+    }
+	  
+    //ensure that the units stand on grass
+    for(int row = 0; row < 5; row++)
+    {
+      for(int col = 0; col < 2; col++)
+      {
+        spaces[row][col] = new Grass();
+      }
+    }
+    for(int row = SIZE - 1; row > SIZE - 6; row--)
+    {
+      for(int col = SIZE - 1; col > SIZE - 3; col--)
+      {
+        spaces[row][col] = new Grass();
+      }
     }
   }
 	
