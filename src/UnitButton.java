@@ -35,4 +35,37 @@ public class UnitButton extends Button
     {
         return imageNum;
     }
+
+	board = game.getBoard();
+			loadButton.setVisible(false);
+			endButton.setDisable(false);
+			randButton.setVisible(false);
+			moveLeft.setText(""+moves);
+			loadBoard(board);
+			
+			for(int col = 0; col < 16; col++)
+			{
+				for(int row = 0; row < 16; row++)
+				{
+					ContextMenu cMenu;
+					MenuButton mButton = new MenuButton();
+					mButton.setPrefHeight(LEN);
+					mButton.setPrefWidth(LEN);
+					mButton.setOpacity(0);	
+					ButtonItem item = new ButtonItem(mButton, "move");
+					ButtonItem item2= new ButtonItem(mButton, "attack");
+					item.setOnAction(this::location);
+					item2.setOnAction(this::location);
+					cMenu = new ContextMenu(item,item2);	
+					mButton.setContextMenu(cMenu);
+					mButton.getItems().addAll(item,item2);
+					menuPane.add(mButton, col, row);
+					cMenu.setOnShowing(e -> e.consume());
+					mButton.setOnMousePressed(e ->
+					{
+						e.consume();
+						showMenu(mButton);
+					});
+				}
+			}
 }

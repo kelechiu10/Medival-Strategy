@@ -38,6 +38,7 @@ public class GameController {
 	@FXML public VBox redTeam;
 	@FXML public VBox blueTeam;
 	
+	private ArrayList<Label> HPs;
 	private Game game;
 	private Board board;
 	private Position startPos;
@@ -94,7 +95,7 @@ public class GameController {
 		endButton.setDisable(false);
 		randButton.setVisible(false);
 		moveLeft.setText(""+moves);
-		loadBoard(board);
+		loadBoardWithBars(board);
 		
 		for(int col = 0; col < 16; col++)
 		{
@@ -154,16 +155,7 @@ public class GameController {
 	{
 		Action act = new Action(pos, startPos, op);
 		running = game.runGame(getTurn(), act);
-		//cell.setImage(oldView.getImage());
-		//oldView.setImage(null);
 		resetHighlight();
-		/*Node bg = getNode(guiBoard,startPos.getX(),startPos.getY());
-		bg.setEffect(null);
-		for(Position position : selection)
-		{
-			Node view = getNode(guiBoard,position.getX(),position.getY());
-			view.setEffect(null);
-		} */
 		resetPos();		
 		loadBoard(board);
 		if(running)
@@ -238,6 +230,19 @@ public class GameController {
 		return result;
 	}
 	
+	private void loadBoardWithBars(Board board)
+	{
+		UnitButton button;
+		ArrayList<Unit> units = game.getUnitList();
+		for(Unit unit : units)
+		{
+			if(unit.getTeam().equals("Red"))
+			{
+				
+			}
+		}
+		loadBoard(board);
+	}
 	private void loadBoard(Board board)
 	{
 		for (int col = 0; col < board.getSize(); col++)
