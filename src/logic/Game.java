@@ -153,6 +153,7 @@ public class Game
        }
        //checks if the action is a heal, and if targets and users exists
        if(!a.getOperation().equals("heal") || board.getSpace(a.getTarget()).getUnit() == null
+          || !board.getSpace(a.getCurrent()).getUnit().getTeam().equals(board.getSpace(a.getTarget()).getUnit().getTeam())
           || board.getSpace(a.getCurrent()).getUnit() == null)
            return false;
        else
@@ -212,6 +213,7 @@ public class Game
    {
        //checks if action is attack, and if target and user exists
        if(!a.getOperation().equals("attack") || board.getSpace(a.getTarget()).getUnit() == null
+          || board.getSpace(a.getCurrent()).getUnit().getTeam().equals(board.getSpace(a.getTarget()).getUnit().getTeam())
           || board.getSpace(a.getCurrent()).getUnit() == null)
             return false;
        else
