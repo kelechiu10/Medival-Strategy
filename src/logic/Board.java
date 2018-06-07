@@ -19,11 +19,14 @@ public class Board
    * The constructor for class Board creates a board of the edges the size of the passed integer
    * @param integer size
    */
-  public Board(int size)
+  public Board(int size, String s)
   {
     SIZE = size;
     spaces = new Space[SIZE][SIZE];
-    fillBoard();
+    if(s.equals("regular"))
+	fillBoard();
+    else
+	fillBoardRandom();
   }
   
 	
