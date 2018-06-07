@@ -240,6 +240,7 @@ public class GameController {
 			{
 				button = new UnitButton(unit);
 				
+				
 			}
 		}
 		loadBoard(board);
