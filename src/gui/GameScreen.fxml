@@ -654,7 +654,7 @@
             </GridPane>
          </children>
       </Group>
-      <Button fx:id="loadButton" layoutX="-1.0" layoutY="64.0" mnemonicParsing="false" onAction="#init" text="Start" />
+      <Button fx:id="loadButton" layoutX="495.0" layoutY="5.0" mnemonicParsing="false" onAction="#init" text="Regular" />
       <VBox layoutX="880.0" layoutY="54.0" prefHeight="333.0" prefWidth="100.0" />
       <VBox layoutX="873.0" layoutY="435.0" prefHeight="306.0" prefWidth="100.0" />
       <Label layoutX="218.0" layoutY="11.0" text="Moves Left">
@@ -674,5 +674,6 @@
             </Lighting>
          </effect>
       </Text>
+      <Button fx:id="randButton" layoutX="623.0" layoutY="5.0" mnemonicParsing="false" onAction="#initRandom" text="Random" />
    </children>
 </Pane>
