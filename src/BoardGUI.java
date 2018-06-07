@@ -1,16 +1,31 @@
+import java.util.ArrayList;
+
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.scene.Scene; 
-import javafx.scene.control.*; 
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.Node;
-import javafx.scene.effect.InnerShadow;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import java.util.ArrayList; 
-
+import logic.Action;
+import logic.Board;
+import logic.Game;
+import logic.Position;
+import tiles.GrassFort;
+import units.Priest;
+import units.Unit; 
 
 /**
  * Write a description of JavaFX class Test here.
@@ -42,7 +57,7 @@ public class BoardGUI extends Application
         
         int index = 0;
         
-        Image mt = new Image("Blank.png");
+        Image mt = new Image("blank.png");
 
         
         HBox topBar = new HBox(775);
@@ -65,7 +80,7 @@ public class BoardGUI extends Application
                 gridMenu.add(mBar, row, col);
                 //puts background in
                 String str = board.getSpace(pos).getGraphic();
-                Image temp = new Image(str + ".png");
+                Image temp = new Image(str);
                 gridPic.add(new ImageView(temp), col, row);
                 //puts units in
                 if(board.getSpace(pos).getUnit() != null)

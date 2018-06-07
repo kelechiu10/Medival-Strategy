@@ -2,7 +2,6 @@ package gui;
 
 import java.util.ArrayList;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -35,7 +34,6 @@ public class GameController {
 	@FXML public Button endButton;
 	@FXML public Button loadButton;
 	
-	private SimpleIntegerProperty numMoves;
 	private Game game;
 	private Board board;
 	private Position startPos;
@@ -59,7 +57,6 @@ public class GameController {
 		turn = 0;
 		maxMoves = 3;
 		moves = maxMoves;
-		moveLeft.setText(""+moves);
 	}
 	public void endTurn()
 	{
@@ -78,7 +75,7 @@ public class GameController {
 		board = game.getBoard();
 		loadButton.setVisible(false);
 		endButton.setDisable(false);
-		
+		moveLeft.setText(""+moves);
 		loadBoard(board);
 		
 		for(int col = 0; col < 16; col++)

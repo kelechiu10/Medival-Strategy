@@ -31,4 +31,13 @@ package tiles;
         else
             return "E";
     }
+    
+    /**
+     * A method to obtain the current status of the fort
+     * @return a boolean for wether the fort is down
+     */
+    public boolean fortDown()
+    {
+    	return fortHealth <= 0;
+    }
  }

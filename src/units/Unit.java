@@ -90,6 +90,28 @@ public abstract class Unit
         return name + team + ".png";
     }
     
+    /**
+     * Returns the current HP that the unit has
+     * @return HP of the unit
+     */
+    public int getHealth()
+    {
+    	return health;
+    }
+    
+    /**
+     * Returns the current position that the unit is at
+     * @return current position of the unit
+     */
+    public Position getPosition()
+    {
+    	return current;
+    }
+    
+    /**
+     * Gets the color of the team the unit is
+     * @return ("Red"/"Blue") depending on the team
+     */
     public String getTeam()
     {
     	return team;
