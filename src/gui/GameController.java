@@ -2,6 +2,7 @@ package gui;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import logic.Action;
 import logic.Board;
 import logic.Game;
@@ -26,16 +28,17 @@ import units.Unit;
 
 public class GameController {
 	@FXML public Label turnLabel;
+	@FXML public Text moveLeft;
 	@FXML public GridPane guiBoard;
 	@FXML public GridPane unitPane;
 	@FXML public GridPane menuPane;
 	@FXML public Button endButton;
 	@FXML public Button loadButton;
 	
+	private SimpleIntegerProperty numMoves;
 	private Game game;
 	private Board board;
 	private Position startPos;
-	private Position endPos;
 	private final int LEN = 50;
 	private InnerShadow highlightG;
 	private InnerShadow highlightR;
@@ -48,21 +51,22 @@ public class GameController {
 	{
 		game = new Game();
 		startPos = new Position(-1,-1);
-		endPos = new Position(-1,-1);
 		highlightG = new InnerShadow();
 		highlightG.setColor(Color.DARKCYAN);
 		highlightG.setRadius(LEN/2);
 		highlightR = new InnerShadow();
 		highlightR.setColor(Color.RED);
 		turn = 0;
-		maxMoves = 5;
+		maxMoves = 3;
 		moves = maxMoves;
+		moveLeft.setText(""+moves);
 	}
 	public void endTurn()
 	{
 		turn++;
 		turnLabel.setText("P" + getTurn() + " Turn");
 		moves = maxMoves;
+		moveLeft.setText(""+moves);
 	}
 	
 	private int getTurn()
@@ -77,25 +81,6 @@ public class GameController {
 		
 		loadBoard(board);
 		
-		
-		/*for( Node node : unitPane.getChildren())
-		{
-			if(node instanceof ImageView)
-			{
-				ImageView unit = (ImageView) node;
-				
-				if(num < 10 || num > 246)
-				{
-					unit.setImage(new Image("KnightBlue.png"));
-				}
-				else
-				{
-					unit.setImage(null);
-				}
-				unit.setOnMouseClicked(this::location);
-				num++;
-			}
-		} */
 		for(int col = 0; col < 16; col++)
 		{
 			for(int row = 0; row < 16; row++)
@@ -144,14 +129,6 @@ public class GameController {
 			Node view = getNode(guiBoard,pos.getX(),pos.getY());
 			view.setEffect(highlightR);
 		}
-			/*
-		}
-		else
-			if(oldView != null && cell.getImage() == null)
-			{
-				endPos.setPos(row, col);
-				doAction(cell);					
-			} */
 		System.out.println(row + " " + col);
 	}
 
@@ -176,49 +153,45 @@ public class GameController {
 		loadBoard(board);
 		moves--;
 		if(moves == 0)
-		{
 			endTurn();
-		}
+		else
+			moveLeft.setText(""+moves);
 	}
 	
 	private void showMenu(MenuButton button)
 	{
-		//MenuButton button = item.getMenuButton();
 		Position pos = new Position(GridPane.getRowIndex(button), GridPane.getColumnIndex(button));
-		//Position pos = new Position(row, col);
-		//ImageView view = (ImageView)getNode(unitPane,pos.getX(),pos.getY());
 		Unit unit = board.getSpace(pos).getUnit();
-		if(unit != null)
+		if(!startPos.equals(new Position(-1,-1)) && selection != null && selection.contains(pos))
 		{
-			String color = unit.getTeam();
-			if( (color.equalsIgnoreCase("red") && getTurn() == 1) || (color.equalsIgnoreCase("blue") && getTurn() == 2) )
-			{
-				ObservableList<MenuItem> items = button.getItems();
-				System.out.println("shown");
-				if(unit instanceof Priest)
-				{
-					if(items.size() < 3)
-					{
-						ButtonItem heal = new ButtonItem(button, "heal");
-						heal.setOnAction(this::location);
-						items.add(2,heal);
-					}
-				}
-				else
-					if(items.size() > 2)
-					{
-						items.remove(2);
-					}
-				button.show();
-			}
+			doAction(pos, op);
 		}
 		else
-		{
-			if(startPos.getX() != -1 && selection.contains(pos))
+			if(unit != null)
 			{
-				doAction(pos, op);
+				String color = unit.getTeam();
+				if( (color.equalsIgnoreCase("red") && getTurn() == 1) || (color.equalsIgnoreCase("blue") && getTurn() == 2) )
+				{
+					ObservableList<MenuItem> items = button.getItems();
+					System.out.println("shown");
+					if(unit instanceof Priest)
+					{
+						if(items.size() < 3)
+						{
+							ButtonItem heal = new ButtonItem(button, "heal");
+							heal.setOnAction(this::location);
+							items.add(2,heal);
+						}
+					}
+					else
+						if(items.size() > 2)
+						{
+							items.remove(2);
+						}
+					button.show();
+				}
 			}
-		}
+		
 	}
 	@FXML
 	public void resetPos()
@@ -230,12 +203,14 @@ public class GameController {
 	private Node getNode(GridPane pane, int row, int col)
 	{
 		Node result = null;
-		for(Node cell: pane.getChildren())
+		ObservableList<Node> nodes = pane.getChildren();
+		for(int i = 0; i < nodes.size(); i++)
 		{
+			Node cell = nodes.get(i);
 			if(GridPane.getRowIndex(cell) == row && GridPane.getColumnIndex(cell) == col)
 			{
 				result = cell;
-				break;
+				i = nodes.size();
 			}
 		}
 		return result;
