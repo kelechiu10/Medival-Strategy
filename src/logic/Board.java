@@ -54,15 +54,15 @@ public class Board
     {
 	int r = (int)(Math.random() * 12);
 	int c = (int)(Math.random() * 12); 
-	if(!spaces[r][c] instanceof GrassFort)
+	if(!(spaces[r][c] instanceof GrassFort))
 	    spaces[r][c] = new Water();
-	if(!spaces[r + 1][c] instanceof GrassFort)
+	if(!(spaces[r + 1][c] instanceof GrassFort))
 	    spaces[r + 1][c] = new Water();
-	if(!spaces[r + 2][c] instanceof GrassFort)
+	if(!(spaces[r + 2][c] instanceof GrassFort))
 	    spaces[r + 2][c] = new Water();
-	if(!spaces[r + 1][c - 1] instanceof GrassFort)
+	if(!(spaces[r + 1][c - 1] instanceof GrassFort))
 	    spaces[r + 1][c - 1] = new Water();
-	if(!spaces[r + 1][c + 1] instanceof GrassFort)
+	if(!(spaces[r + 1][c + 1] instanceof GrassFort))
 	    spaces[r + 1][c + 1] = new Water();
     }
 	  
