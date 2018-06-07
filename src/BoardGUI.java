@@ -52,7 +52,7 @@ public class BoardGUI extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-        game = new Game();
+        game = new Game("regular");
         board = game.getBoard();
         
         int index = 0;

@@ -15,6 +15,7 @@ import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import logic.Action;
@@ -34,6 +35,8 @@ public class GameController {
 	@FXML public Button endButton;
 	@FXML public Button loadButton;
 	@FXML public Button randButton;
+	@FXML public VBox redTeam;
+	@FXML public VBox blueTeam;
 	
 	private Game game;
 	private Board board;
@@ -76,42 +79,16 @@ public class GameController {
 	public void initRandom()
 	{
 		game = new Game("random");
-		board = game.getBoard();
-		loadButton.setVisible(false);
-		endButton.setDisable(false);
-		randButton.setVisible(false);
-		moveLeft.setText(""+moves);
-		loadBoard(board);
-		
-		for(int col = 0; col < 16; col++)
-		{
-			for(int row = 0; row < 16; row++)
-			{
-				ContextMenu cMenu;
-				MenuButton mButton = new MenuButton();
-				mButton.setPrefHeight(LEN);
-				mButton.setPrefWidth(LEN);
-				mButton.setOpacity(0);	
-				ButtonItem item = new ButtonItem(mButton, "move");
-				ButtonItem item2= new ButtonItem(mButton, "attack");
-				item.setOnAction(this::location);
-				item2.setOnAction(this::location);
-				cMenu = new ContextMenu(item,item2);	
-				mButton.setContextMenu(cMenu);
-				mButton.getItems().addAll(item,item2);
-				menuPane.add(mButton, col, row);
-				cMenu.setOnShowing(e -> e.consume());
-				mButton.setOnMousePressed(e ->
-				{
-					e.consume();
-					showMenu(mButton);
-				});
-			}
-		}
+		init();
 	} 
-	public void init()
+	public void initRegular()
 	{
 		game = new Game("regular");
+		init();
+	} 
+	
+	private void init()
+	{
 		board = game.getBoard();
 		loadButton.setVisible(false);
 		endButton.setDisable(false);
@@ -144,8 +121,7 @@ public class GameController {
 				});
 			}
 		}
-	} 
-	
+	}
 	/**
 	 * Mouse Event to get two positions on the gridpane
 	 * @param e	event
