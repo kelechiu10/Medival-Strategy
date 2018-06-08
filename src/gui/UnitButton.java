@@ -19,11 +19,10 @@ public class UnitButton extends Button
     /**
      * 
      */
-    public UnitButton(Unit unit, int index)
+    public UnitButton(Unit unit)
     {
         super(unit.getHealth() + "", new ImageView(new Image(unit.getGraphic())));
         myUnit = unit;
-        imageNum = index;
         this.textProperty().bind(new SimpleIntegerProperty((Integer)unit.getHealth()).asString());
     }
     

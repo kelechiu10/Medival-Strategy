@@ -15,6 +15,7 @@ import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -36,9 +37,8 @@ public class GameController {
 	@FXML public Button loadButton;
 	@FXML public Button randButton;
 	@FXML public VBox redTeam;
-	@FXML public VBox blueTeam;
+	@FXML public HBox blueTeam;
 	
-	private ArrayList<Label> HPs;
 	private Game game;
 	private Board board;
 	private Position startPos;
@@ -79,12 +79,12 @@ public class GameController {
 
 	public void initRandom()
 	{
-		game = new Game("random");
+		game = new Game(5);
 		init();
 	} 
 	public void initRegular()
 	{
-		game = new Game("regular");
+		game = new Game(1);
 		init();
 	} 
 	
@@ -236,11 +236,14 @@ public class GameController {
 		ArrayList<Unit> units = game.getUnitList();
 		for(Unit unit : units)
 		{
-			if(unit.getTeam().equals("Red"))
+			button = new UnitButton(unit);
+			if(unit.getTeam().equals("red"))
 			{
-				button = new UnitButton(unit);
-				
-				
+				redTeam.getChildren().add(button);
+			}
+			else
+			{
+				blueTeam.getChildren().add(button);
 			}
 		}
 		loadBoard(board);

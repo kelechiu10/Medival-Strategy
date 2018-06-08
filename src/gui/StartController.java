@@ -26,7 +26,6 @@ public class StartController {
 			Parent root = FXMLLoader.load(getClass().getResource("/gui/GameScreen.fxml"));
 			oldStage.setScene(new Scene(root));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

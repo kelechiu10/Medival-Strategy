@@ -59,8 +59,8 @@ public class Board
 	  
     for(int k = 0; k < 5; k++)
     {
-	int r = (int)(Math.random() * 12);
-	int c = (int)(Math.random() * 12); 
+	int r = (int)(Math.random() * 11);
+	int c = (int)(Math.random() * 11); 
 	if(!(spaces[r][c] instanceof GrassFort))
 	    spaces[r][c] = new Water();
 	if(!(spaces[r + 1][c] instanceof GrassFort))
