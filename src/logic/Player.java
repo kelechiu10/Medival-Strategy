@@ -101,7 +101,7 @@ import java.util.ArrayList;
         boolean result = true;
         for(Unit u : units)
         {
-           if(u instanceof Runner)
+           if(u instanceof General)
                result = false;
         }
         return result;
