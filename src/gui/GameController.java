@@ -135,6 +135,7 @@ public class GameController {
 		map.setVisible(false);
 		moveLeft.setText(""+moves);
 		loadBoardWithBars(board);
+		guiBoard.getScene().setOnKeyPressed(e-> reset());
 		
 		//load the buttons with move and attack actions
 		for(int col = 0; col < 16; col++)
@@ -162,6 +163,14 @@ public class GameController {
 				});
 			}
 		}
+	}
+	
+	//resets the highlights and position to get out of location
+	private void reset()
+	{
+		resetHighlight();
+		resetPos();
+		selection = null;
 	}
 	/**
 	 * Mouse Event to get two positions on the gridpane
