@@ -56,7 +56,7 @@ public class GameController {
 	private Board board;
 	private Position startPos;
 	private final int LEN = 50;
-	private InnerShadow highlightG;
+	private InnerShadow highlightG; //green highlight for selected
 	private InnerShadow highlightR;
 	private ArrayList<Position> selection;
 	private ArrayList<UnitButton> hpBars;
@@ -210,7 +210,7 @@ public class GameController {
 		else
 		{
 			System.out.println("Game over");
-			end = GameOver.displayEnd(getTurn());
+			end = GameOver.displayEnd(getTurn()); //display end card
 			if(end)
 				( (Stage)guiBoard.getScene().getWindow() ).close();
 			else

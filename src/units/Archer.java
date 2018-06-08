@@ -5,7 +5,7 @@ import logic.*;
  * Attack: 10
  * Defence: 10
  * Health: 45
- * Movement: 5
+ * Movement: 2.5
  * Abilities:
  * -#1 Shoot: Damages unit at a distance
  *

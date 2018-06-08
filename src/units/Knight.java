@@ -5,7 +5,7 @@ import logic.*;
  * Attack: 20
  * Defence: 20
  * Health: 65
- * Movement: 3
+ * Movement: 2.5
  * Abilities:
  * -(no abilities)
  *

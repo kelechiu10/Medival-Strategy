@@ -5,7 +5,7 @@ import logic.*;
  * Attack: 12
  * Defence: 15
  * Health: 40
- * Movement: 4
+ * Movement: 2
  * Abilities:
  * -#1 Fireball: Damages unit at a distance
  *
