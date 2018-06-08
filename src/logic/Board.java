@@ -49,28 +49,28 @@ public class Board
 
     for(int k = 0; k < 4; k++)
     {
-	spaces[(int)(Math.random() * 7)][(int)(Math.random() * 7)] = new GrassFort();
+    	spaces[(int)(Math.random() * 7)][(int)(Math.random() * 7)] = new GrassFort();
     }
 	
     for(int k = 0; k < 4; k++)
     {
-	spaces[14 - (int)(Math.random() * 7)][14 - (int)(Math.random() * 7)] = new GrassFort();
+    	spaces[14 - (int)(Math.random() * 7)][14 - (int)(Math.random() * 7)] = new GrassFort();
     }
 	  
     for(int k = 0; k < 5; k++)
     {
-	int r = (int)(Math.random() * 11);
-	int c = (int)(Math.random() * 11); 
-	if(!(spaces[r][c] instanceof GrassFort))
-	    spaces[r][c] = new Water();
-	if(!(spaces[r + 1][c] instanceof GrassFort))
-	    spaces[r + 1][c] = new Water();
-	if(!(spaces[r + 2][c] instanceof GrassFort))
-	    spaces[r + 2][c] = new Water();
-	if(!(spaces[r + 1][c - 1] instanceof GrassFort))
-	    spaces[r + 1][c - 1] = new Water();
-	if(!(spaces[r + 1][c + 1] instanceof GrassFort))
-	    spaces[r + 1][c + 1] = new Water();
+		int r = (int)(Math.random() * 10);
+		int c = (int)(Math.random() * 10); 
+		if(!(spaces[r][c] instanceof GrassFort))
+		    spaces[r][c] = new Water();
+		if(!(spaces[r + 1][c] instanceof GrassFort))
+		    spaces[r + 1][c] = new Water();
+		if(!(spaces[r + 2][c] instanceof GrassFort))
+		    spaces[r + 2][c] = new Water();
+		if(!(spaces[r + 1][c - 1] instanceof GrassFort))
+		    spaces[r + 1][c - 1] = new Water();
+		if(!(spaces[r + 1][c + 1] instanceof GrassFort))
+		    spaces[r + 1][c + 1] = new Water();
     }
 	  
     //ensure that the units stand on grass

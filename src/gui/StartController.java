@@ -2,6 +2,7 @@ package gui;
 
 import java.io.IOException;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,8 +14,8 @@ import javafx.stage.Stage;
 
 public class StartController {
 	public AnchorPane rootPane;
-	public Pane pane;
-	public Button button;
+	@FXML public Pane pane;
+	@FXML public Button button;
 	public TextArea text;
 	
 	public void startGame()

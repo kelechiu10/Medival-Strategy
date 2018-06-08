@@ -23,12 +23,18 @@ public class UnitButton extends Button
     {
         super(unit.getHealth() + "", new ImageView(new Image(unit.getGraphic())));
         myUnit = unit;
-        this.textProperty().bind(new SimpleIntegerProperty((Integer)unit.getHealth()).asString());
+        textProperty().set("" + unit.getHealth());
+        //this.textProperty().bind(new SimpleIntegerProperty((Integer)unit.getHealth()).asString());
     }
     
     public Unit getUnit()
     {
         return myUnit;
+    }
+    
+    public void setLabel(String s)
+    {
+    	textProperty().set(s);
     }
     
     public int getIndex()

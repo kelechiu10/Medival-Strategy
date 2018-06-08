@@ -1,11 +1,15 @@
 package gui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -19,6 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import logic.Action;
 import logic.Board;
 import logic.Game;
@@ -28,6 +33,7 @@ import units.Priest;
 import units.Unit;
 
 public class GameController {
+	/** label showing the turn*/
 	@FXML public Label turnLabel;
 	@FXML public Text moveLeft;
 	@FXML public GridPane guiBoard;
@@ -39,6 +45,7 @@ public class GameController {
 	@FXML public VBox redTeam;
 	@FXML public HBox blueTeam;
 	
+	private final Position nullPos = new Position(-1,-1);
 	private Game game;
 	private Board board;
 	private Position startPos;
@@ -46,6 +53,7 @@ public class GameController {
 	private InnerShadow highlightG;
 	private InnerShadow highlightR;
 	private ArrayList<Position> selection;
+	private ArrayList<UnitButton> hpBars;
 	private int moves;
 	private final int maxMoves;
 	private int turn;
@@ -63,7 +71,11 @@ public class GameController {
 		maxMoves = 3;
 		moves = maxMoves;
 		running = true;
+		hpBars = new ArrayList<UnitButton>();
 	}
+	/**
+	 * provides a method to end the turn of the current player
+	 */
 	public void endTurn()
 	{
 		turn++;
@@ -72,24 +84,36 @@ public class GameController {
 		moveLeft.setText(""+moves);
 	}
 	
+	//get the current turn (1/2)
 	private int getTurn()
 	{
 		return (turn % 2 + 1);
 	}
 
+	/**
+	 * creates and loads a game with a random map
+	 */
 	public void initRandom()
 	{
 		game = new Game(5);
 		init();
 	} 
+	
+	/**
+	 * creates and loads a game from a preset map
+	 */
 	public void initRegular()
 	{
 		game = new Game(1);
 		init();
 	} 
 	
+	/**
+	 * gets the GUI ready for the first turn of the game
+	 */
 	private void init()
 	{
+		//get board and update containers and other GUI nodes
 		board = game.getBoard();
 		loadButton.setVisible(false);
 		endButton.setDisable(false);
@@ -97,6 +121,7 @@ public class GameController {
 		moveLeft.setText(""+moves);
 		loadBoardWithBars(board);
 		
+		//load the buttons with move and attack actions
 		for(int col = 0; col < 16; col++)
 		{
 			for(int row = 0; row < 16; row++)
@@ -144,7 +169,7 @@ public class GameController {
 			Node view = getNode(guiBoard,pos.getX(),pos.getY());
 			view.setEffect(highlightR);
 		}
-		System.out.println(row + " " + col);
+		//System.out.println(row + " " + col);
 	}
 
 	/**
@@ -153,11 +178,13 @@ public class GameController {
 	 */
 	private void doAction(Position pos, String op)
 	{
+		boolean end;
 		Action act = new Action(pos, startPos, op);
 		running = game.runGame(getTurn(), act);
 		resetHighlight();
 		resetPos();		
 		loadBoard(board);
+		setHP();
 		if(running)
 		{
 			moves--;
@@ -169,14 +196,23 @@ public class GameController {
 		else
 		{
 			System.out.println("Game over");
+			end = GameOver.displayEnd(getTurn());
+			if(end)
+				( (Stage)guiBoard.getScene().getWindow() ).close();
+			else
+				resetGame();
 		}
 	}
 	
+	/**
+	 * Show the Menu of possible actions, or getting click of the target of the action
+	 * @param button that was pressed
+	 */
 	private void showMenu(MenuButton button)
 	{
 		Position pos = new Position(GridPane.getRowIndex(button), GridPane.getColumnIndex(button));
 		Unit unit = board.getSpace(pos).getUnit();
-		if(!startPos.equals(new Position(-1,-1)) && selection != null && selection.contains(pos))
+		if(!startPos.equals(nullPos) && selection != null && selection.contains(pos))
 		{
 			doAction(pos, op);
 		}
@@ -187,7 +223,7 @@ public class GameController {
 				if( (color.equalsIgnoreCase("red") && getTurn() == 1) || (color.equalsIgnoreCase("blue") && getTurn() == 2) )
 				{
 					ObservableList<MenuItem> items = button.getItems();
-					System.out.println("shown");
+					//System.out.println("shown");
 					if(unit instanceof Priest)
 					{
 						if(items.size() < 3)
@@ -207,13 +243,19 @@ public class GameController {
 			}
 		
 	}
-	@FXML
-	public void resetPos()
+	//reset start position
+	private void resetPos()
 	{
 		startPos.setPos(-1,-1);
-		System.out.println("reset");
 	}
 	
+	/**
+	 * provides a method to get a Node from a GridPane
+	 * @param pane the GridPane that contains the node
+	 * @param row row location of the Node
+	 * @param col column location of the Node
+	 * @return the Node at that position
+	 */
 	private Node getNode(GridPane pane, int row, int col)
 	{
 		Node result = null;
@@ -230,6 +272,10 @@ public class GameController {
 		return result;
 	}
 	
+	/**
+	 * load the board and set up the Health bars
+	 * @param board
+	 */
 	private void loadBoardWithBars(Board board)
 	{
 		UnitButton button;
@@ -237,6 +283,7 @@ public class GameController {
 		for(Unit unit : units)
 		{
 			button = new UnitButton(unit);
+			button.setDisable(true);
 			if(unit.getTeam().equals("red"))
 			{
 				redTeam.getChildren().add(button);
@@ -245,9 +292,14 @@ public class GameController {
 			{
 				blueTeam.getChildren().add(button);
 			}
+			hpBars.add(button);
 		}
 		loadBoard(board);
 	}
+	/**
+	 * load the current state of the game
+	 * @param board game board to load GUI from
+	 */
 	private void loadBoard(Board board)
 	{
 		for (int col = 0; col < board.getSize(); col++)
@@ -267,9 +319,10 @@ public class GameController {
 		}
 	}
 	
+	//reset shadow effects to null
 	private void resetHighlight()
 	{
-		if(!startPos.equals(new Position(-1,-1)))
+		if(!startPos.equals(nullPos))
 		{
 			Node bg = getNode(guiBoard,startPos.getX(),startPos.getY());
 			bg.setEffect(null);
@@ -281,6 +334,29 @@ public class GameController {
 				Node view = getNode(guiBoard,position.getX(),position.getY());
 				view.setEffect(null);
 			}
+		}
+	}
+	
+	/**
+	 * updates the HP values for the units
+	 */
+	private void setHP()
+	{
+		for(UnitButton b : hpBars)
+		{
+			b.setLabel(""+b.getUnit().getHealth());
+		}
+	}
+	
+	private void resetGame()
+	{
+		try 
+		{
+			Stage oldStage = (Stage) guiBoard.getScene().getWindow();
+			Parent root = FXMLLoader.load(getClass().getResource("/gui/GameScreen.fxml"));
+			oldStage.setScene(new Scene(root));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
