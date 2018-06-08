@@ -33,8 +33,12 @@ import tiles.Space;
 import units.Priest;
 import units.Unit;
 
+/**
+ * Game Controller used in conjunction with GameScreen.fxml. Deals with the GUI for the Game itself
+ * @author Kelechi
+ *
+ */
 public class GameController {
-	/** label showing the turn*/
 	@FXML public Label turnLabel;
 	@FXML public Text moveLeft;
 	@FXML public GridPane guiBoard;

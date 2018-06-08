@@ -91,7 +91,7 @@ public class BoardGUI extends Application
                     index++;
                     
                     //sidebar stuff
-                    UnitButton uButton = new UnitButton(board.getSpace(new Position(row,col)).getUnit(), index - 1);
+                    //UnitButton uButton = new UnitButton(board.getSpace(new Position(row,col)).getUnit(), index - 1);
                     InnerShadow highlightR = new InnerShadow();
                     InnerShadow highlightG = new InnerShadow(),highlightY = new InnerShadow();
                     highlightR.setColor(Color.RED);

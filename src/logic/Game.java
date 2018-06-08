@@ -10,9 +10,7 @@ import java.util.ArrayList;
 public class Game
 {
    private Board board;
-   private int turnNumber;
    private Player[] players;
-   private boolean playerTurn;
    
    /**
     * the constructor for Game creates a standard game with two players, a 15 X 15 board and 10 units per player.
@@ -24,7 +22,6 @@ public class Game
        players = new Player[2];
        players[0] = new Player("red");
        players[1] = new Player("blue");
-       turnNumber = 0;
        board.placeUnits(players);
    }
    
@@ -89,14 +86,13 @@ public class Game
                    int healPower = ((Priest)(board.getSpace(act.getCurrent())).getUnit()).getAbilityPower();
                    (board.getSpace(act.getTarget())).getUnit().heal(healPower);
                } 
-       turnNumber++;
        return !isOver();
    }
             
    /**
     * Returns list of all legal action targets of unit at a position
     * @param position position of unit to test action 
-    * @return list of legal posititons to be acted by unit at a position, null if no unit at position
+    * @return list of legal positions to be acted by unit at a position, null if no unit at position
     */
    public ArrayList<Position> getValidAction(Position p, String act)
    {

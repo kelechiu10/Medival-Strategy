@@ -12,12 +12,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * Used in conjunction with the Start.fxml file to provide the menu before starting the game
+ * @author Kelechi
+ *
+ */
 public class StartController {
 	public AnchorPane rootPane;
 	@FXML public Pane pane;
 	@FXML public Button button;
 	public TextArea text;
 	
+	/**
+	 * changes screens and starts the game
+	 */
 	public void startGame()
 	{
 		Stage oldStage;

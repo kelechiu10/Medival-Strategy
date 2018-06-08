@@ -1,20 +1,19 @@
 package gui;
-import javafx.beans.property.SimpleIntegerProperty;
+
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import units.Unit;
 
 /**
- * Write a description of JavaFX class UnitButton here.
+ * UnitButton is an child of a Button that holds a unit (used as a health bar)
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Claudia, Kelechi
+ * @version 6/7/18
  */
 public class UnitButton extends Button
 {
-    private Unit myUnit;
-    private int imageNum;
+    private Unit myUnit; //unit that it is "binded" to
     
     /**
      * 
@@ -24,7 +23,6 @@ public class UnitButton extends Button
         super(unit.getHealth() + "", new ImageView(new Image(unit.getGraphic())));
         myUnit = unit;
         textProperty().set("" + unit.getHealth());
-        //this.textProperty().bind(new SimpleIntegerProperty((Integer)unit.getHealth()).asString());
     }
     
     public Unit getUnit()
@@ -35,10 +33,5 @@ public class UnitButton extends Button
     public void setLabel(String s)
     {
     	textProperty().set(s);
-    }
-    
-    public int getIndex()
-    {
-        return imageNum;
     }
 }

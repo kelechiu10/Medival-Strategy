@@ -7,9 +7,19 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * GameOver is used to show end game and prompt if they want to play again
+ * @author Kelechi
+ *
+ */
 public class GameOver {
 	
 	static boolean result;
+	/**
+	 * displays a new popup window for the end card
+	 * @param p number for the player that won
+	 * @return boolean depending on they want to exit or play again
+	 */
 	public static boolean displayEnd(int p)
 	{
 		Stage window = new Stage();
