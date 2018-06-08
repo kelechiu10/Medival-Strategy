@@ -15,6 +15,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -44,6 +45,7 @@ public class GameController {
 	@FXML public Button randButton;
 	@FXML public VBox redTeam;
 	@FXML public HBox blueTeam;
+	@FXML public TextField map;
 	
 	private final Position nullPos = new Position(-1,-1);
 	private Game game;
@@ -104,7 +106,14 @@ public class GameController {
 	 */
 	public void initRegular()
 	{
-		game = new Game(1);
+		Integer num;
+		if(map.getText().matches("[0-9]"))
+		{
+			num = new Integer(map.getText());
+			game = new Game(num.intValue());
+		}
+		else
+			game = new Game(3);
 		init();
 	} 
 	
@@ -118,6 +127,7 @@ public class GameController {
 		loadButton.setVisible(false);
 		endButton.setDisable(false);
 		randButton.setVisible(false);
+		map.setVisible(false);
 		moveLeft.setText(""+moves);
 		loadBoardWithBars(board);
 		

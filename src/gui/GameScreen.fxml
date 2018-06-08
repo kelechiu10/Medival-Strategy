@@ -660,7 +660,7 @@
             <Font name="Book Antiqua" size="15.0" />
          </font>
       </Label>
-      <Text fx:id="moveLeft" layoutX="305.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER">
+      <Text fx:id="moveLeft" layoutX="305.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
          <effect>
             <Lighting>
                <bumpInput>
@@ -675,5 +675,6 @@
       <Button fx:id="randButton" layoutX="623.0" layoutY="5.0" mnemonicParsing="false" onAction="#initRandom" text="Random" />
       <VBox fx:id="redTeam" layoutX="841.0" layoutY="53.0" prefHeight="306.0" prefWidth="100.0" />
       <HBox fx:id="blueTeam" layoutX="7.0" layoutY="847.0" prefHeight="79.0" prefWidth="896.0" />
+      <TextField fx:id="map" layoutX="380.0" layoutY="5.0" prefHeight="31.0" prefWidth="100.0" promptText="Map #" />
    </children>
 </Pane>

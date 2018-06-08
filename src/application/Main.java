@@ -14,7 +14,7 @@ public class Main extends Application {
 		{
 			Parent root = FXMLLoader.load(getClass().getResource("/gui/Start.fxml"));
 			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.setTitle("Medival Strategy");

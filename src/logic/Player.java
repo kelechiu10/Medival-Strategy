@@ -97,10 +97,11 @@ import java.util.ArrayList;
      */
     public boolean isDead()
     {
+    	updateUnitList();
         boolean result = true;
         for(Unit u : units)
         {
-           if(u instanceof General)
+           if(u instanceof Runner)
                result = false;
         }
         return result;
