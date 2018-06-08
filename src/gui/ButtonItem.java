@@ -5,7 +5,8 @@ import javafx.scene.control.MenuItem;
 
 /**
  * an implementation of a MenuItem that knows tits own MenuButton
- * @author Kelechi
+ * @author Kelechi Uhegbu
+ * @version June 8, 2018
  *
  */
 public class ButtonItem extends MenuItem{

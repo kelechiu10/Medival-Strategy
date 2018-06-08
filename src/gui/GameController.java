@@ -35,7 +35,8 @@ import units.Unit;
 
 /**
  * Game Controller used in conjunction with GameScreen.fxml. Deals with the GUI for the Game itself
- * @author Kelechi
+ * @author Kelechi Uhegbu
+ * @version June 8, 2018
  *
  */
 public class GameController {

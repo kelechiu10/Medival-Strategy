@@ -14,7 +14,8 @@ import javafx.stage.Stage;
 
 /**
  * Used in conjunction with the Start.fxml file to provide the menu before starting the game
- * @author Kelechi
+ * @author Kelechi Uhegbu
+ * @version June 8, 2018
  *
  */
 public class StartController {

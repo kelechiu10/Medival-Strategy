@@ -9,7 +9,8 @@ import javafx.stage.Stage;
 
 /**
  * GameOver is used to show end game and prompt if they want to play again
- * @author Kelechi
+ * @author Kelechi Uhegbu
+ * @version June 8, 2018
  *
  */
 public class GameOver {

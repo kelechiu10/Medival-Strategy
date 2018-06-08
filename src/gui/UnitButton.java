@@ -8,7 +8,8 @@ import units.Unit;
 /**
  * UnitButton is an child of a Button that holds a unit (used as a health bar)
  *
- * @author Claudia, Kelechi
+ * @author Claudia Xue
+ * @author Kelechi Uhegbu
  * @version 6/7/18
  */
 public class UnitButton extends Button
